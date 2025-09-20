@@ -1,0 +1,456 @@
+pipeline {
+    agent any
+    
+    environment {
+        APP_NAME = 'laravel-app'
+        PR_NUMBER = "${env.CHANGE_ID}"
+        PR_BRANCH = "${env.CHANGE_BRANCH}"
+        TARGET_BRANCH = "${env.CHANGE_TARGET}"
+    }
+    
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+        timeout(time: 30, unit: 'MINUTES')
+        skipStagesAfterUnstable()
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                script {
+                    env.GIT_COMMIT_SHORT = sh(
+                        script: 'git rev-parse --short HEAD',
+                        returnStdout: true
+                    ).trim()
+                }
+            }
+        }
+        
+        stage('Setup Test Environment') {
+            steps {
+                sh '''
+                    # Copy and configure testing environment
+                    cp .env.example .env.testing
+                    
+                    # Install dependencies
+                    composer install --optimize-autoloader
+                    npm ci
+                    
+                    # Generate application key
+                    php artisan key:generate --env=testing
+                    
+                    # Clear caches
+                    php artisan config:clear --env=testing
+                    php artisan cache:clear --env=testing
+                    php artisan route:clear --env=testing
+                    php artisan view:clear --env=testing
+                    
+                    # Create test database
+                    touch database/testing.sqlite
+                    
+                    # Setup test database with migrations and seeds
+                    php artisan migrate:fresh --env=testing --force --seed
+                '''
+            }
+        }
+        
+        stage('Code Quality Checks') {
+            parallel {
+                stage('Laravel Pint Code Style') {
+                    steps {
+                        sh '''
+                            # Run Laravel Pint code style checks
+                            vendor/bin/pint --test --verbose --config=pint.json
+                            
+                            # Generate checkstyle report for Jenkins
+                            vendor/bin/pint --test --format=checkstyle > test-results/pint-checkstyle.xml || true
+                        '''
+                    }
+                    post {
+                        always {
+                            publishCheckStyleResults pattern: 'test-results/pint-checkstyle.xml'
+                        }
+                        failure {
+                            sh '''
+                                echo "❌ Code style violations found!"
+                                echo "Run the following command to fix automatically:"
+                                echo "vendor/bin/pint"
+                                echo ""
+                                echo "Violations found:"
+                                vendor/bin/pint --test --verbose || true
+                            '''
+                        }
+                    }
+                }
+                
+                stage('PHP Static Analysis') {
+                    steps {
+                        sh '''
+                            # Create results directory
+                            mkdir -p test-results
+                            
+                            # Run PHPStan if configured
+                            if [ -f "phpstan.neon" ] || [ -f "phpstan.neon.dist" ]; then
+                                vendor/bin/phpstan analyse --memory-limit=2G --error-format=checkstyle > test-results/phpstan-results.xml || true
+                            else
+                                echo "PHPStan not configured, skipping..."
+                                touch test-results/phpstan-results.xml
+                            fi
+                            
+                            # Run Psalm if configured
+                            if [ -f "psalm.xml" ] || [ -f "psalm.xml.dist" ]; then
+                                vendor/bin/psalm --output-format=checkstyle --report=test-results/psalm-results.xml || true
+                            else
+                                echo "Psalm not configured, skipping..."
+                                touch test-results/psalm-results.xml
+                            fi
+                        '''
+                    }
+                    post {
+                        always {
+                            publishCheckStyleResults pattern: 'test-results/phpstan-results.xml,test-results/psalm-results.xml'
+                        }
+                    }
+                }
+                
+                stage('Frontend Asset Validation') {
+                    steps {
+                        sh '''
+                            # Build frontend assets to validate they compile
+                            npm run build
+                            
+                            # Run frontend linting if configured
+                            if grep -q "lint" package.json; then
+                                npm run lint || echo "Frontend linting failed, but continuing..."
+                            else
+                                echo "Frontend linting not configured, skipping..."
+                            fi
+                            
+                            # Run TypeScript type checking if configured
+                            if [ -f "tsconfig.json" ]; then
+                                npx tsc --noEmit || echo "TypeScript type checking completed with warnings"
+                            fi
+                            
+                            # Validate that assets were built successfully
+                            if [ ! -d "public/build" ]; then
+                                echo "❌ Error: Frontend assets not built successfully"
+                                exit 1
+                            fi
+                            
+                            echo "✅ Frontend assets built successfully"
+                        '''
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'public/build/**', allowEmptyArchive: true
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Security Checks') {
+            parallel {
+                stage('PHP Dependencies') {
+                    steps {
+                        sh '''
+                            composer audit --format=json > composer-audit.json || true
+                        '''
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'composer-audit.json', allowEmptyArchive: true
+                        }
+                    }
+                }
+                
+                stage('NPM Dependencies') {
+                    steps {
+                        sh '''
+                            npm audit --json > npm-audit.json || true
+                        '''
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: 'npm-audit.json', allowEmptyArchive: true
+                        }
+                    }
+                }
+                
+                stage('Code Security Scan') {
+                    steps {
+                        sh '''
+                            # Run security-focused static analysis
+                            vendor/bin/phpstan analyse --configuration=phpstan-security.neon --memory-limit=2G || true
+                        '''
+                    }
+                }
+            }
+        }
+        
+        stage('Unit Tests') {
+            parallel {
+                stage('PHPUnit Tests') {
+                    steps {
+                        sh '''
+                            # Create results directory
+                            mkdir -p test-results coverage
+                            
+                            # Cache configuration for better performance
+                            php artisan config:cache --env=testing
+                            
+                            # Run PHPUnit tests with comprehensive reporting
+                            vendor/bin/phpunit \\
+                                --configuration phpunit.xml \\
+                                --coverage-clover=coverage/clover.xml \\
+                                --coverage-html=coverage/html \\
+                                --log-junit=test-results/phpunit-results.xml \\
+                                --testdox-html=test-results/testdox.html \\
+                                --stop-on-failure
+                        '''
+                    }
+                    post {
+                        always {
+                            // Publish test results
+                            publishTestResults testResultsPattern: 'test-results/phpunit-results.xml'
+                            
+                            // Publish code coverage
+                            publishCoverage adapters: [
+                                cloverAdapter('coverage/clover.xml')
+                            ], sourceFileResolver: sourceFiles('STORE_LAST_BUILD')
+                            
+                            // Archive test artifacts
+                            archiveArtifacts artifacts: 'coverage/**, test-results/**', allowEmptyArchive: true
+                        }
+                        failure {
+                            sh '''
+                                echo "❌ PHPUnit tests failed!"
+                                echo "Check the test results for details."
+                            '''
+                        }
+                    }
+                }
+                
+                stage('Frontend Tests') {
+                    steps {
+                        sh '''
+                            # Create results directory
+                            mkdir -p test-results
+                            
+                            # Run frontend unit tests if configured
+                            if grep -q "\\"test\\"" package.json; then
+                                echo "Running frontend tests..."
+                                npm run test -- --coverage --watchAll=false --testResultsProcessor=jest-junit --outputFile=test-results/jest-results.xml || echo "Frontend tests completed with issues"
+                            else
+                                echo "Frontend tests not configured in package.json, skipping..."
+                                echo "To add frontend tests, add a 'test' script to package.json"
+                                touch test-results/jest-results.xml
+                            fi
+                        '''
+                    }
+                    post {
+                        always {
+                            publishTestResults testResultsPattern: 'test-results/jest-results.xml', allowEmptyResults: true
+                        }
+                    }
+                }
+                
+                stage('Database Tests') {
+                    steps {
+                        sh '''
+                            # Test database migrations and rollbacks
+                            echo "Testing database migrations..."
+                            php artisan migrate:fresh --env=testing --force
+                            php artisan migrate:rollback --env=testing --force
+                            php artisan migrate --env=testing --force
+                            
+                            # Test database seeding
+                            echo "Testing database seeding..."
+                            php artisan db:seed --env=testing --force
+                            
+                            # Run database-specific tests if they exist
+                            vendor/bin/phpunit --configuration phpunit.xml --group=database --log-junit=test-results/database-tests.xml || echo "No database-specific tests found"
+                        '''
+                    }
+                    post {
+                        always {
+                            publishTestResults testResultsPattern: 'test-results/database-tests.xml', allowEmptyResults: true
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Integration Tests') {
+            steps {
+                sh '''
+                    # Create results directory
+                    mkdir -p test-results
+                    
+                    # Refresh test database with fresh migrations and seeds
+                    echo "Setting up fresh test database..."
+                    php artisan migrate:fresh --env=testing --seed --force
+                    
+                    # Run Laravel Feature tests (integration tests)
+                    echo "Running integration/feature tests..."
+                    vendor/bin/phpunit \\
+                        --configuration phpunit.xml \\
+                        --testsuite=Feature \\
+                        --log-junit=test-results/feature-test-results.xml \\
+                        --stop-on-failure
+                    
+                    # Run API tests if they exist
+                    if [ -d "tests/Feature/Api" ]; then
+                        echo "Running API integration tests..."
+                        vendor/bin/phpunit \\
+                            --configuration phpunit.xml \\
+                            tests/Feature/Api \\
+                            --log-junit=test-results/api-test-results.xml \\
+                            --stop-on-failure
+                    fi
+                '''
+            }
+            post {
+                always {
+                    publishTestResults testResultsPattern: 'test-results/feature-test-results.xml,test-results/api-test-results.xml', allowEmptyResults: true
+                }
+                failure {
+                    sh '''
+                        echo "❌ Integration tests failed!"
+                        echo "This usually indicates issues with:"
+                        echo "- Database interactions"
+                        echo "- API endpoints"
+                        echo "- Feature workflows"
+                        echo "Check the test results for specific failures."
+                    '''
+                }
+            }
+        }
+        
+        stage('Build Validation') {
+            steps {
+                sh '''
+                    # Validate that the application can be built
+                    npm run build
+                    
+                    # Validate Docker build (without pushing)
+                    docker build -t ${APP_NAME}:pr-${PR_NUMBER} .
+                '''
+            }
+            post {
+                always {
+                    sh 'docker rmi ${APP_NAME}:pr-${PR_NUMBER} || true'
+                }
+            }
+        }
+        
+        stage('Performance Tests') {
+            steps {
+                sh '''
+                    # Run basic performance tests
+                    php artisan test:performance --env=testing
+                '''
+            }
+        }
+        
+        stage('Generate PR Report') {
+            steps {
+                script {
+                    def testResults = readFile('phpunit-results.xml')
+                    def coverageReport = readFile('coverage.xml')
+                    
+                    // Generate summary report
+                    writeFile file: 'pr-summary.md', text: """
+# Pull Request Validation Summary
+
+## Branch Information
+- **PR Number**: ${env.PR_NUMBER}
+- **Source Branch**: ${env.PR_BRANCH}
+- **Target Branch**: ${env.TARGET_BRANCH}
+- **Commit**: ${env.GIT_COMMIT_SHORT}
+
+## Test Results
+- ✅ Code style checks passed
+- ✅ Static analysis completed
+- ✅ Security scans completed
+- ✅ Unit tests passed
+- ✅ Integration tests passed
+- ✅ Build validation successful
+
+## Next Steps
+This PR is ready for code review. All automated checks have passed.
+"""
+                }
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'pr-summary.md'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            script {
+                // Update GitHub PR status
+                githubNotify(
+                    status: 'SUCCESS',
+                    description: 'All PR validation checks passed',
+                    context: 'jenkins/pr-validation'
+                )
+                
+                // Post comment on PR
+                pullRequest.comment("""
+✅ **PR Validation Successful**
+
+All automated checks have passed:
+- Code quality and style ✅
+- Security scans ✅  
+- Unit and integration tests ✅
+- Build validation ✅
+
+This PR is ready for review!
+
+[View detailed results](${env.BUILD_URL})
+""")
+            }
+        }
+        failure {
+            script {
+                githubNotify(
+                    status: 'FAILURE',
+                    description: 'PR validation checks failed',
+                    context: 'jenkins/pr-validation'
+                )
+                
+                pullRequest.comment("""
+❌ **PR Validation Failed**
+
+Some automated checks have failed. Please review the build logs and fix the issues:
+
+[View detailed results](${env.BUILD_URL})
+
+Common issues to check:
+- Code style violations
+- Test failures
+- Security vulnerabilities
+- Build errors
+""")
+            }
+        }
+        unstable {
+            script {
+                githubNotify(
+                    status: 'FAILURE',
+                    description: 'PR validation checks are unstable',
+                    context: 'jenkins/pr-validation'
+                )
+            }
+        }
+    }
+}

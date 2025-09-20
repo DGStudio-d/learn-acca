@@ -1,0 +1,78 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@756.v891d88f2cd46">
+  <actions/>
+  <description>Laravel Application CI/CD Pipeline with GitHub Integration</description>
+  <properties>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@2.2131.vb_9788088fdb_5">
+      <dockerLabel></dockerLabel>
+      <registry plugin="docker-commons@439.va_beb_0c6865d9"/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
+  </properties>
+  <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.1135.v8de8e70c5c3c">
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+  </folderViews>
+  <healthMetrics>
+    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.815.v0dd5a_cb_40e0e">
+      <nonRecursive>false</nonRecursive>
+    </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+  </healthMetrics>
+  <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.1135.v8de8e70c5c3c">
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+  </icon>
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.815.v0dd5a_cb_40e0e">
+    <pruneDeadBranches>true</pruneDeadBranches>
+    <daysToKeep>7</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <abortBuilds>false</abortBuilds>
+  </orphanedItemStrategy>
+  <triggers>
+    <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.815.v0dd5a_cb_40e0e">
+      <spec>H/15 * * * *</spec>
+      <interval>900000</interval>
+    </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+  </triggers>
+  <disabled>false</disabled>
+  <sources class="jenkins.branch.BranchSource" plugin="branch-api@2.1135.v8de8e70c5c3c">
+    <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1703.vd5a_2b_29c6cdc">
+      <id>github-source</id>
+      <apiUri>https://api.github.com</apiUri>
+      <credentialsId>github-credentials</credentialsId>
+      <repoOwner>your-organization</repoOwner>
+      <repository>your-laravel-app</repository>
+      <repositoryUrl>https://github.com/your-organization/your-laravel-app</repositoryUrl>
+      <traits>
+        <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+          <strategyId>1</strategyId>
+        </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+        <org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+          <strategyId>1</strategyId>
+        </org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+        <org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+          <strategyId>1</strategyId>
+          <trust class="org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait$TrustPermission"/>
+        </org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+        <jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait plugin="scm-api@683.vb_16722fb_b_80b_">
+          <includes>main develop feature/* hotfix/* release/*</includes>
+          <excludes></excludes>
+        </jenkins.scm.impl.trait.WildcardSCMHeadFilterTrait>
+        <org.jenkinsci.plugins.github__branch__source.StatusNotificationTrait plugin="github-branch-source@1703.vd5a_2b_29c6cdc">
+          <name></name>
+          <contexts>
+            <org.jenkinsci.plugins.github__branch__source.StatusNotificationTrait_-StatusNotificationContext>
+              <context>jenkins/ci</context>
+              <typeSuffix>true</typeSuffix>
+            </org.jenkinsci.plugins.github__branch__source.StatusNotificationTrait_-StatusNotificationContext>
+          </contexts>
+          <suppressUpToDate>false</suppressUpToDate>
+        </org.jenkinsci.plugins.github__branch__source.StatusNotificationTrait>
+      </traits>
+    </source>
+    <strategy class="jenkins.branch.DefaultBranchPropertyStrategy" plugin="branch-api@2.1135.v8de8e70c5c3c">
+      <properties class="empty-list"/>
+    </strategy>
+  </sources>
+  <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory" plugin="workflow-multibranch@756.v891d88f2cd46">
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+    <scriptPath>Jenkinsfile</scriptPath>
+  </factory>
+</org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>

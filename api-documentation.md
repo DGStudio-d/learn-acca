@@ -4,42 +4,42 @@
 
 1. [Overview](#overview)
 2. [Getting Started](#getting-started)
-   - [Base URL & Authentication](#base-url--authentication)
-   - [Quick Start Guide](#quick-start-guide)
+    - [Base URL & Authentication](#base-url--authentication)
+    - [Quick Start Guide](#quick-start-guide)
 3. [Authentication & Authorization](#authentication--authorization)
-   - [Authentication Flow](#authentication-flow)
-   - [Role-Based Access Control](#role-based-access-control)
-   - [Token Management](#token-management)
+    - [Authentication Flow](#authentication-flow)
+    - [Role-Based Access Control](#role-based-access-control)
+    - [Token Management](#token-management)
 4. [API Standards](#api-standards)
-   - [Response Format](#response-format)
-   - [Error Handling](#error-handling)
-   - [Pagination](#pagination)
+    - [Response Format](#response-format)
+    - [Error Handling](#error-handling)
+    - [Pagination](#pagination)
 5. [Core Endpoints](#core-endpoints)
-   - [Health & System](#health--system-endpoints)
-   - [Authentication](#authentication-endpoints)
-   - [Translation Management](#translation-management)
+    - [Health & System](#health--system-endpoints)
+    - [Authentication](#authentication-endpoints)
+    - [Translation Management](#translation-management)
 6. [Administrative Functions](#administrative-functions)
-   - [User Management](#user-management)
-   - [Enrollment Management](#enrollment-management)
-   - [Program Management](#program-management)
-   - [Language Management](#language-management)
-   - [Quiz Administration](#quiz-administration)
-   - [Settings Management](#settings-management)
+    - [User Management](#user-management)
+    - [Enrollment Management](#enrollment-management)
+    - [Program Management](#program-management)
+    - [Language Management](#language-management)
+    - [Quiz Administration](#quiz-administration)
+    - [Settings Management](#settings-management)
 7. [Teacher Operations](#teacher-operations)
-   - [Profile Management](#profile-management)
-   - [Quiz Management](#quiz-management)
-   - [Meeting Management](#meeting-management)
-   - [Language Access](#language-access)
+    - [Profile Management](#profile-management)
+    - [Quiz Management](#quiz-management)
+    - [Meeting Management](#meeting-management)
+    - [Language Access](#language-access)
 8. [Student Operations](#student-operations)
-   - [Enrollment & Programs](#enrollment--programs)
-   - [Quiz Taking](#quiz-taking)
-   - [Meeting Access](#meeting-access)
+    - [Enrollment & Programs](#enrollment--programs)
+    - [Quiz Taking](#quiz-taking)
+    - [Meeting Access](#meeting-access)
 9. [Guest Access](#guest-access)
-   - [Guest Language Access](#guest-language-access)
-   - [Guest Teacher Access](#guest-teacher-access)
-   - [Guest Quiz Access](#guest-quiz-access)
-   - [Legacy Guest Quiz Endpoints](#legacy-guest-quiz-endpoints)
-   - [Guest Access Configuration](#guest-access-configuration)
+    - [Guest Language Access](#guest-language-access)
+    - [Guest Teacher Access](#guest-teacher-access)
+    - [Guest Quiz Access](#guest-quiz-access)
+    - [Legacy Guest Quiz Endpoints](#legacy-guest-quiz-endpoints)
+    - [Guest Access Configuration](#guest-access-configuration)
 10. [Notification System](#notification-system)
 11. [Practical Usage Examples](#practical-usage-examples--workflows)
     - [Complete User Journey Examples](#complete-user-journey-examples)
@@ -59,22 +59,22 @@ The Learn Academy API is a comprehensive RESTful web service built with Laravel 
 
 ### Key Features
 
-- **Multi-Role Support**: Administrators, Teachers, Students, and Guest users
-- **Secure Authentication**: Token-based authentication with Laravel Sanctum
-- **Internationalization**: Multi-language support with dynamic translations
-- **Assessment System**: Comprehensive quiz creation and management
-- **Meeting Management**: Scheduling and coordination tools
-- **Real-time Notifications**: User notification system with preferences
-- **Flexible Access Control**: Role-based and permission-based authorization
+-   **Multi-Role Support**: Administrators, Teachers, Students, and Guest users
+-   **Secure Authentication**: Token-based authentication with Laravel Sanctum
+-   **Internationalization**: Multi-language support with dynamic translations
+-   **Assessment System**: Comprehensive quiz creation and management
+-   **Meeting Management**: Scheduling and coordination tools
+-   **Real-time Notifications**: User notification system with preferences
+-   **Flexible Access Control**: Role-based and permission-based authorization
 
 ### User Roles Overview
 
-| Role | Capabilities | Access Level |
-|------|-------------|--------------|
-| **Administrator** | Full system management, user administration, system configuration | Complete access to all endpoints |
-| **Teacher** | Content creation, student management, quiz administration | Program and language-specific access |
-| **Student** | Learning activities, quiz taking, progress tracking | Enrollment-based access |
-| **Guest** | Public content viewing, anonymous quiz taking | Limited public access (configurable) |
+| Role              | Capabilities                                                      | Access Level                         |
+| ----------------- | ----------------------------------------------------------------- | ------------------------------------ |
+| **Administrator** | Full system management, user administration, system configuration | Complete access to all endpoints     |
+| **Teacher**       | Content creation, student management, quiz administration         | Program and language-specific access |
+| **Student**       | Learning activities, quiz taking, progress tracking               | Enrollment-based access              |
+| **Guest**         | Public content viewing, anonymous quiz taking                     | Limited public access (configurable) |
 
 ---
 
@@ -123,6 +123,7 @@ curl -X GET "https://your-domain.com/api/student/enrollments" \
 All API responses follow a consistent JSON structure to ensure predictable integration:
 
 #### Success Response Structure
+
 ```json
 {
     "success": true,
@@ -134,6 +135,7 @@ All API responses follow a consistent JSON structure to ensure predictable integ
 ```
 
 #### Error Response Structure
+
 ```json
 {
     "success": false,
@@ -145,6 +147,7 @@ All API responses follow a consistent JSON structure to ensure predictable integ
 ```
 
 #### Paginated Response Structure
+
 ```json
 {
     "success": true,
@@ -160,17 +163,17 @@ All API responses follow a consistent JSON structure to ensure predictable integ
 
 ### HTTP Status Codes
 
-| Code | Meaning | Usage |
-|------|---------|-------|
-| `200` | OK | Successful GET, PUT, PATCH requests |
-| `201` | Created | Successful POST requests |
-| `204` | No Content | Successful DELETE requests |
-| `400` | Bad Request | Invalid request format |
-| `401` | Unauthorized | Authentication required |
-| `403` | Forbidden | Insufficient permissions |
-| `404` | Not Found | Resource not found |
-| `422` | Unprocessable Entity | Validation errors |
-| `500` | Internal Server Error | Server errors |
+| Code  | Meaning               | Usage                               |
+| ----- | --------------------- | ----------------------------------- |
+| `200` | OK                    | Successful GET, PUT, PATCH requests |
+| `201` | Created               | Successful POST requests            |
+| `204` | No Content            | Successful DELETE requests          |
+| `400` | Bad Request           | Invalid request format              |
+| `401` | Unauthorized          | Authentication required             |
+| `403` | Forbidden             | Insufficient permissions            |
+| `404` | Not Found             | Resource not found                  |
+| `422` | Unprocessable Entity  | Validation errors                   |
+| `500` | Internal Server Error | Server errors                       |
 
 ---
 
@@ -445,7 +448,7 @@ The API uses Laravel's built-in pagination for list endpoints. Pagination respon
             {
                 "id": 2,
                 "name": "Jane Smith",
-                "email": "jane.smith@example.com", 
+                "email": "jane.smith@example.com",
                 "role": "teacher",
                 "created_at": "2024-01-16T14:20:00.000000Z"
             }
@@ -474,7 +477,7 @@ The API uses Laravel's built-in pagination for list endpoints. Pagination respon
             },
             {
                 "url": "https://your-domain.com/api/admin/users?page=2",
-                "label": "2", 
+                "label": "2",
                 "active": false
             },
             {
@@ -726,11 +729,13 @@ All error responses follow a consistent JSON structure:
 ```
 
 **Resolution Steps**:
+
 1. Ensure you have a valid access token from login or registration
 2. Include the token in the Authorization header: `Authorization: Bearer {token}`
 3. Verify the token hasn't expired by checking the login response
 
 **cURL Example**:
+
 ```bash
 # Incorrect - Missing Authorization header
 curl -X GET "https://your-domain.com/api/admin/users"
@@ -753,6 +758,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Verify the token format is correct (should start with number and pipe: `1|...`)
 2. Check if the token has expired by attempting to refresh or re-login
 3. Ensure the token wasn't revoked due to logout or account changes
@@ -772,6 +778,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Implement token refresh mechanism in your application
 2. Re-authenticate the user to obtain a new token
 3. Store the new token securely and retry the original request
@@ -792,6 +799,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Verify the user account has the correct role assigned
 2. Contact system administrator to request role upgrade if appropriate
 3. Use alternative endpoints available to your current role
@@ -812,6 +820,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Contact administrator to request additional permissions
 2. Verify your account has the necessary permissions for the action
 3. Use read-only endpoints if you only have view permissions
@@ -832,6 +841,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Verify you're accessing resources you own or are enrolled in
 2. Check if you have the correct resource ID in your request
 3. Ensure you're enrolled in the program if accessing program-specific content
@@ -865,6 +875,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Check each field in the `errors` object for specific requirements
 2. Ensure all required fields are included in your request
 3. Validate data types and formats before sending the request
@@ -890,6 +901,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. **Name**: Provide a name with at least 2 characters
 2. **Email**: Use a different email address that isn't already registered
 3. **Password**: Ensure password and password_confirmation fields match exactly
@@ -909,14 +921,19 @@ curl -X GET "https://your-domain.com/api/admin/users" \
         "program_id": ["The selected program id is invalid."],
         "questions": ["The questions field is required."],
         "questions.0.question": ["The questions.0.question field is required."],
-        "questions.0.answers": ["The questions.0.answers must have at least 2 items."],
-        "questions.1.correct_answer": ["The questions.1.correct answer field is required."]
+        "questions.0.answers": [
+            "The questions.0.answers must have at least 2 items."
+        ],
+        "questions.1.correct_answer": [
+            "The questions.1.correct answer field is required."
+        ]
     },
     "error_code": "QUIZ_VALIDATION_FAILED"
 }
 ```
 
 **Resolution Steps**:
+
 1. **Title**: Provide a descriptive quiz title
 2. **Program ID**: Ensure the program exists and you have access to it
 3. **Questions**: Include at least one question in the questions array
@@ -944,6 +961,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. **File Type**: Use supported image formats (JPEG, PNG, JPG, GIF, SVG)
 2. **File Size**: Ensure file is under 2MB (2048 KB)
 3. **Required Files**: Include all required file fields in multipart form data
@@ -965,6 +983,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Validate JSON syntax using a JSON validator
 2. Check for missing commas, quotes, or brackets
 3. Ensure proper escaping of special characters
@@ -985,6 +1004,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Verify the resource ID exists in the system
 2. Check if you have permission to access the resource
 3. Ensure the resource hasn't been deleted
@@ -1004,6 +1024,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Check API documentation for correct HTTP method
 2. Use the appropriate method from the allowed_methods list
 3. Verify the endpoint URL is correct
@@ -1027,6 +1048,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Use a different title or identifier for the resource
 2. Check if you intended to update the existing resource instead
 3. Use PUT method to update existing resource if appropriate
@@ -1047,6 +1069,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Reduce file size or compress files before uploading
 2. Split large requests into smaller chunks
 3. Check server configuration for upload limits
@@ -1068,6 +1091,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Implement exponential backoff in your client
 2. Wait until reset_time before making new requests
 3. Reduce request frequency to stay within limits
@@ -1090,6 +1114,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Retry the request after a brief delay
 2. Check if the issue persists across multiple requests
 3. Report the error with the request_id to support team
@@ -1114,6 +1139,7 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 ```
 
 **Resolution Steps**:
+
 1. Wait for the maintenance window to complete
 2. Implement retry logic with exponential backoff
 3. Check service status page for updates
@@ -1125,41 +1151,43 @@ curl -X GET "https://your-domain.com/api/admin/users" \
 #### Client-Side Error Handling
 
 1. **Implement Proper Error Handling**:
+
 ```javascript
-fetch('https://your-domain.com/api/admin/users', {
-    method: 'GET',
+fetch("https://your-domain.com/api/admin/users", {
+    method: "GET",
     headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    }
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    },
 })
-.then(response => {
-    if (!response.ok) {
-        return response.json().then(error => {
-            throw new Error(`HTTP ${response.status}: ${error.message}`);
-        });
-    }
-    return response.json();
-})
-.then(data => {
-    console.log('Success:', data);
-})
-.catch(error => {
-    console.error('Error:', error.message);
-    // Handle specific error codes
-    if (error.message.includes('401')) {
-        // Redirect to login
-        window.location.href = '/login';
-    }
-});
+    .then((response) => {
+        if (!response.ok) {
+            return response.json().then((error) => {
+                throw new Error(`HTTP ${response.status}: ${error.message}`);
+            });
+        }
+        return response.json();
+    })
+    .then((data) => {
+        console.log("Success:", data);
+    })
+    .catch((error) => {
+        console.error("Error:", error.message);
+        // Handle specific error codes
+        if (error.message.includes("401")) {
+            // Redirect to login
+            window.location.href = "/login";
+        }
+    });
 ```
 
 2. **Handle Validation Errors**:
+
 ```javascript
 // Handle 422 validation errors
 if (response.status === 422) {
     const errorData = await response.json();
-    Object.keys(errorData.errors).forEach(field => {
+    Object.keys(errorData.errors).forEach((field) => {
         const fieldErrors = errorData.errors[field];
         displayFieldErrors(field, fieldErrors);
     });
@@ -1167,6 +1195,7 @@ if (response.status === 422) {
 ```
 
 3. **Implement Retry Logic**:
+
 ```javascript
 async function apiRequestWithRetry(url, options, maxRetries = 3) {
     for (let i = 0; i < maxRetries; i++) {
@@ -1174,14 +1203,18 @@ async function apiRequestWithRetry(url, options, maxRetries = 3) {
             const response = await fetch(url, options);
             if (response.status === 429) {
                 // Rate limited, wait and retry
-                const retryAfter = response.headers.get('Retry-After') || 60;
-                await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+                const retryAfter = response.headers.get("Retry-After") || 60;
+                await new Promise((resolve) =>
+                    setTimeout(resolve, retryAfter * 1000)
+                );
                 continue;
             }
             return response;
         } catch (error) {
             if (i === maxRetries - 1) throw error;
-            await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+            await new Promise((resolve) =>
+                setTimeout(resolve, 1000 * Math.pow(2, i))
+            );
         }
     }
 }
@@ -2143,6 +2176,7 @@ The authentication system provides secure user registration, login, logout, and 
 **Request Body Examples**:
 
 **Student Registration**:
+
 ```json
 {
     "name": "Maria Garcia",
@@ -2159,6 +2193,7 @@ The authentication system provides secure user registration, login, logout, and 
 ```
 
 **Teacher Registration**:
+
 ```json
 {
     "name": "Ahmed Hassan",
@@ -2175,6 +2210,7 @@ The authentication system provides secure user registration, login, logout, and 
 ```
 
 **Admin Registration**:
+
 ```json
 {
     "name": "Sarah Johnson",
@@ -2193,6 +2229,7 @@ The authentication system provides secure user registration, login, logout, and 
 **Success Response Examples**:
 
 **Student Registration Success (201)**:
+
 ```json
 {
     "success": true,
@@ -2222,6 +2259,7 @@ The authentication system provides secure user registration, login, logout, and 
 ```
 
 **Teacher Registration Success (201)**:
+
 ```json
 {
     "success": true,
@@ -2242,7 +2280,11 @@ The authentication system provides secure user registration, login, logout, and 
                 "name": "Advanced",
                 "description": "Advanced level for experienced learners"
             },
-            "permissions": ["create-quizzes", "manage-meetings", "view-students"],
+            "permissions": [
+                "create-quizzes",
+                "manage-meetings",
+                "view-students"
+            ],
             "created_at": "2024-01-20T15:45:00.000000Z",
             "updated_at": "2024-01-20T15:45:00.000000Z"
         },
@@ -2252,6 +2294,7 @@ The authentication system provides secure user registration, login, logout, and 
 ```
 
 **Admin Registration Success (201)**:
+
 ```json
 {
     "success": true,
@@ -2272,7 +2315,12 @@ The authentication system provides secure user registration, login, logout, and 
                 "name": "Advanced",
                 "description": "Advanced level for experienced learners"
             },
-            "permissions": ["manage-users", "manage-programs", "manage-settings", "view-analytics"],
+            "permissions": [
+                "manage-users",
+                "manage-programs",
+                "manage-settings",
+                "view-analytics"
+            ],
             "created_at": "2024-01-20T16:00:00.000000Z",
             "updated_at": "2024-01-20T16:00:00.000000Z"
         },
@@ -2284,6 +2332,7 @@ The authentication system provides secure user registration, login, logout, and 
 **Validation Error Response Examples**:
 
 **Multiple Field Validation Errors (422)**:
+
 ```json
 {
     "success": false,
@@ -2302,6 +2351,7 @@ The authentication system provides secure user registration, login, logout, and 
 ```
 
 **Email Already Exists Error (422)**:
+
 ```json
 {
     "success": false,
@@ -2313,6 +2363,7 @@ The authentication system provides secure user registration, login, logout, and 
 ```
 
 **Password Validation Error (422)**:
+
 ```json
 {
     "success": false,
@@ -2330,6 +2381,7 @@ The authentication system provides secure user registration, login, logout, and 
 ```
 
 **Phone Number Validation Error (422)**:
+
 ```json
 {
     "success": false,
@@ -2387,6 +2439,7 @@ curl -X POST "https://your-domain.com/api/auth/register" \
 **Success Response Examples**:
 
 **Student Login Success (200)**:
+
 ```json
 {
     "success": true,
@@ -2402,7 +2455,11 @@ curl -X POST "https://your-domain.com/api/auth/register" \
             "notify_email": true,
             "notify_whatsapp": true,
             "roles": ["student"],
-            "permissions": ["take-quizzes", "view-enrollments", "attend-meetings"],
+            "permissions": [
+                "take-quizzes",
+                "view-enrollments",
+                "attend-meetings"
+            ],
             "last_login": "2024-01-20T14:30:00.000000Z",
             "enrollments_count": 3,
             "active_programs": 2
@@ -2414,6 +2471,7 @@ curl -X POST "https://your-domain.com/api/auth/register" \
 ```
 
 **Teacher Login Success (200)**:
+
 ```json
 {
     "success": true,
@@ -2429,7 +2487,12 @@ curl -X POST "https://your-domain.com/api/auth/register" \
             "notify_email": true,
             "notify_whatsapp": false,
             "roles": ["teacher"],
-            "permissions": ["create-quizzes", "manage-meetings", "view-students", "grade-assignments"],
+            "permissions": [
+                "create-quizzes",
+                "manage-meetings",
+                "view-students",
+                "grade-assignments"
+            ],
             "last_login": "2024-01-20T15:45:00.000000Z",
             "assigned_languages": ["Arabic", "English"],
             "active_programs": 5,
@@ -2442,6 +2505,7 @@ curl -X POST "https://your-domain.com/api/auth/register" \
 ```
 
 **Admin Login Success (200)**:
+
 ```json
 {
     "success": true,
@@ -2457,7 +2521,13 @@ curl -X POST "https://your-domain.com/api/auth/register" \
             "notify_email": true,
             "notify_whatsapp": false,
             "roles": ["admin"],
-            "permissions": ["manage-users", "manage-programs", "manage-settings", "view-analytics", "system-admin"],
+            "permissions": [
+                "manage-users",
+                "manage-programs",
+                "manage-settings",
+                "view-analytics",
+                "system-admin"
+            ],
             "last_login": "2024-01-20T16:00:00.000000Z",
             "system_stats": {
                 "total_users": 1247,
@@ -2474,6 +2544,7 @@ curl -X POST "https://your-domain.com/api/auth/register" \
 **Authentication Error Response Examples**:
 
 **Invalid Credentials (401)**:
+
 ```json
 {
     "success": false,
@@ -2485,17 +2556,21 @@ curl -X POST "https://your-domain.com/api/auth/register" \
 ```
 
 **Account Disabled (401)**:
+
 ```json
 {
     "success": false,
     "message": "Account disabled",
     "errors": {
-        "account": ["Your account has been disabled. Please contact an administrator."]
+        "account": [
+            "Your account has been disabled. Please contact an administrator."
+        ]
     }
 }
 ```
 
 **Too Many Login Attempts (429)**:
+
 ```json
 {
     "success": false,
@@ -3084,7 +3159,11 @@ The User Management endpoints provide comprehensive CRUD operations for managing
                 "email": "maria.rodriguez@example.com",
                 "role": "teacher",
                 "preferred_language": "es",
-                "permissions": ["manage-quizzes", "manage-meetings", "view-students"]
+                "permissions": [
+                    "manage-quizzes",
+                    "manage-meetings",
+                    "view-students"
+                ]
             },
             {
                 "id": 15,
@@ -3092,7 +3171,11 @@ The User Management endpoints provide comprehensive CRUD operations for managing
                 "email": "sarah.johnson@example.com",
                 "role": "teacher",
                 "preferred_language": "en",
-                "permissions": ["manage-quizzes", "manage-meetings", "view-students"]
+                "permissions": [
+                    "manage-quizzes",
+                    "manage-meetings",
+                    "view-students"
+                ]
             }
         ],
         "total": 18
@@ -3442,39 +3525,42 @@ class UserManager {
 
     async getUsers(filters = {}) {
         const params = new URLSearchParams();
-        
+
         // Add filters to params
         Object.entries(filters).forEach(([key, value]) => {
-            if (value !== null && value !== undefined && value !== '') {
+            if (value !== null && value !== undefined && value !== "") {
                 params.append(key, value);
             }
         });
-        
-        const response = await fetch(`${this.apiBaseUrl}/admin/users?${params}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${this.authToken}`,
-                'Content-Type': 'application/json'
+
+        const response = await fetch(
+            `${this.apiBaseUrl}/admin/users?${params}`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${this.authToken}`,
+                    "Content-Type": "application/json",
+                },
             }
-        });
-        
+        );
+
         return response.json();
     }
 
     async searchUsers(searchTerm, additionalFilters = {}) {
-        return this.getUsers({ 
-            search: searchTerm, 
-            ...additionalFilters 
+        return this.getUsers({
+            search: searchTerm,
+            ...additionalFilters,
         });
     }
 
     async getUsersByRole(role, page = 1, perPage = 20) {
-        return this.getUsers({ 
-            role, 
-            page, 
+        return this.getUsers({
+            role,
+            page,
             per_page: perPage,
-            sort_by: 'name',
-            sort_order: 'asc'
+            sort_by: "name",
+            sort_order: "asc",
         });
     }
 
@@ -3484,10 +3570,10 @@ class UserManager {
         let hasMorePages = true;
 
         while (hasMorePages) {
-            const response = await this.getUsers({ 
-                ...filters, 
-                page, 
-                per_page: 100 
+            const response = await this.getUsers({
+                ...filters,
+                page,
+                per_page: 100,
             });
 
             if (response.success && response.data.data.length > 0) {
@@ -3504,25 +3590,25 @@ class UserManager {
 }
 
 // Usage examples
-const userManager = new UserManager('https://your-domain.com/api', adminToken);
+const userManager = new UserManager("https://your-domain.com/api", adminToken);
 
 // Get paginated users
 const users = await userManager.getUsers({ page: 1, per_page: 20 });
 
 // Search for specific users
-const searchResults = await userManager.searchUsers('maria', { 
-    role: 'teacher' 
+const searchResults = await userManager.searchUsers("maria", {
+    role: "teacher",
 });
 
 // Get all teachers
-const teachers = await userManager.getUsersByRole('teacher');
+const teachers = await userManager.getUsersByRole("teacher");
 
 // Get all Arabic-speaking students
 const arabicStudents = await userManager.getUsers({
-    role: 'student',
-    preferred_language: 'ar',
-    sort_by: 'created_at',
-    sort_order: 'desc'
+    role: "student",
+    preferred_language: "ar",
+    sort_by: "created_at",
+    sort_order: "desc",
 });
 
 // Get complete user list (all pages)
@@ -3549,7 +3635,7 @@ class UserManager:
         """Get users with optional filtering and pagination"""
         url = f"{self.api_base_url}/admin/users"
         params = {k: v for k, v in (filters or {}).items() if v is not None}
-        
+
         response = requests.get(url, headers=self.headers, params=params)
         return response.json()
 
@@ -3572,32 +3658,32 @@ class UserManager:
         """Get all users across multiple pages"""
         all_users = []
         page = 1
-        
+
         while True:
             current_filters = (filters or {}).copy()
             current_filters.update({'page': page, 'per_page': 100})
-            
+
             response = self.get_users(current_filters)
-            
+
             if not response.get('success') or not response['data']['data']:
                 break
-                
+
             all_users.extend(response['data']['data'])
-            
+
             if page >= response['data']['last_page']:
                 break
-                
+
             page += 1
-        
+
         return all_users
 
     def get_user_statistics(self, filters: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Get user statistics from the meta information"""
         response = self.get_users(filters)
-        
+
         if response.get('success') and 'meta' in response:
             return response['meta'].get('summary', {})
-        
+
         return {}
 
 # Usage examples
@@ -5512,7 +5598,11 @@ All program management endpoints require admin authentication and provide detail
                     "name": "Carlos Rodriguez",
                     "email": "carlos.rodriguez@example.com",
                     "profile_image": "/storage/teachers/carlos-rodriguez.jpg",
-                    "specializations": ["Literature", "Advanced Grammar", "Cultural Studies"]
+                    "specializations": [
+                        "Literature",
+                        "Advanced Grammar",
+                        "Cultural Studies"
+                    ]
                 },
                 "statistics": {
                     "enrollment": {
@@ -5564,7 +5654,11 @@ All program management endpoints require admin authentication and provide detail
                     "name": "Fatima Al-Zahra",
                     "email": "fatima.alzahra@example.com",
                     "profile_image": "/storage/teachers/fatima-alzahra.jpg",
-                    "specializations": ["Grammar", "Classical Arabic", "Modern Standard Arabic"]
+                    "specializations": [
+                        "Grammar",
+                        "Classical Arabic",
+                        "Modern Standard Arabic"
+                    ]
                 },
                 "statistics": {
                     "enrollment": {
@@ -5625,11 +5719,12 @@ All program management endpoints require admin authentication and provide detail
 
 **Filter by Language** (`?language_id=1`)
 {
-    "success": false,
-    "message": "Failed to retrieve programs",
-    "error": "Database connection error"
+"success": false,
+"message": "Failed to retrieve programs",
+"error": "Database connection error"
 }
-```
+
+````
 
 **cURL Examples**:
 
@@ -5648,7 +5743,7 @@ curl -X GET "https://your-domain.com/api/admin/programs?language_id=1" \
 curl -X GET "https://your-domain.com/api/admin/programs?level_id=2&active=true" \
   -H "Authorization: Bearer {admin_token}" \
   -H "Content-Type: application/json"
-```
+````
 
 ---
 
@@ -8781,6 +8876,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 **Request Body Examples**:
 
 **Multiple Choice Quiz**:
+
 ```json
 {
     "title": "Spanish Verb Conjugation Quiz",
@@ -8797,6 +8893,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 ```
 
 **Fill in the Blank Quiz**:
+
 ```json
 {
     "title": "Arabic Grammar Completion",
@@ -8813,6 +8910,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 ```
 
 **Mixed Type Quiz**:
+
 ```json
 {
     "title": "English Comprehensive Assessment",
@@ -8829,6 +8927,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 ```
 
 **Quick Assessment Quiz**:
+
 ```json
 {
     "title": "Daily Vocabulary Check",
@@ -8847,6 +8946,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 **Success Response Examples**:
 
 **Multiple Choice Quiz Created (201)**:
+
 ```json
 {
     "success": true,
@@ -8904,6 +9004,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 ```
 
 **Fill in the Blank Quiz Created (201)**:
+
 ```json
 {
     "success": true,
@@ -8953,6 +9054,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 **Validation Error Response Examples**:
 
 **Multiple Field Validation Errors (422)**:
+
 ```json
 {
     "success": false,
@@ -8971,14 +9073,13 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
             "The time limit must be at least 1 minute.",
             "The time limit may not be greater than 300 minutes."
         ],
-        "passing_score": [
-            "The passing score must be between 0 and 100."
-        ]
+        "passing_score": ["The passing score must be between 0 and 100."]
     }
 }
 ```
 
 **Duplicate Title Error (422)**:
+
 ```json
 {
     "success": false,
@@ -8992,6 +9093,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 ```
 
 **Program Access Error (403)**:
+
 ```json
 {
     "success": false,
@@ -9006,6 +9108,7 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes?search=grammar&active=t
 ```
 
 **Invalid Quiz Configuration (422)**:
+
 ```json
 {
     "success": false,
@@ -10299,6 +10402,7 @@ fetch("https://your-domain.com/api/teacher/profile", {
 **Request Examples**:
 
 **JSON Request (No Image Upload)**:
+
 ```json
 {
     "name": "Maria Elena Rodriguez",
@@ -10310,6 +10414,7 @@ fetch("https://your-domain.com/api/teacher/profile", {
 ```
 
 **Multipart Form Data Request (With Image Upload)**:
+
 ```bash
 curl -X PUT "https://your-domain.com/api/teacher/profile" \
   -H "Authorization: Bearer {teacher_token}" \
@@ -10322,28 +10427,30 @@ curl -X PUT "https://your-domain.com/api/teacher/profile" \
 ```
 
 **JavaScript FormData Example**:
+
 ```javascript
 const formData = new FormData();
-formData.append('name', 'Maria Elena Rodriguez');
-formData.append('email', 'maria.elena@example.com');
-formData.append('phone', '+1-555-0124');
-formData.append('notify_email', 'true');
-formData.append('notify_whatsapp', 'true');
-formData.append('image', fileInput.files[0]); // File from input element
+formData.append("name", "Maria Elena Rodriguez");
+formData.append("email", "maria.elena@example.com");
+formData.append("phone", "+1-555-0124");
+formData.append("notify_email", "true");
+formData.append("notify_whatsapp", "true");
+formData.append("image", fileInput.files[0]); // File from input element
 
-fetch('https://your-domain.com/api/teacher/profile', {
-    method: 'PUT',
+fetch("https://your-domain.com/api/teacher/profile", {
+    method: "PUT",
     headers: {
-        'Authorization': 'Bearer ' + teacherToken,
+        Authorization: "Bearer " + teacherToken,
         // Don't set Content-Type header - browser will set it with boundary
     },
-    body: formData
+    body: formData,
 })
-.then(response => response.json())
-.then(data => console.log('Profile updated:', data));
+    .then((response) => response.json())
+    .then((data) => console.log("Profile updated:", data));
 ```
 
 **Python Requests Example**:
+
 ```python
 import requests
 
@@ -10372,6 +10479,7 @@ print(response.json())
 **Success Response Examples**:
 
 **Profile Updated with New Image (200)**:
+
 ```json
 {
     "success": true,
@@ -10419,6 +10527,7 @@ print(response.json())
 ```
 
 **Profile Updated without Image (200)**:
+
 ```json
 {
     "success": true,
@@ -10455,6 +10564,7 @@ print(response.json())
 **Validation Error Response Examples**:
 
 **Multiple Field Validation Errors (422)**:
+
 ```json
 {
     "success": false,
@@ -10478,6 +10588,7 @@ print(response.json())
 ```
 
 **Image Validation Errors (422)**:
+
 ```json
 {
     "success": false,
@@ -10494,6 +10605,7 @@ print(response.json())
 ```
 
 **File Upload Errors (422)**:
+
 ```json
 {
     "success": false,
@@ -10509,6 +10621,7 @@ print(response.json())
 ```
 
 **Duplicate Information Errors (422)**:
+
 ```json
 {
     "success": false,
@@ -11875,13 +11988,7 @@ function loadQuizForTaking(quizId) {
 
 ```json
 {
-    "answers": [
-        "Hola",
-        "Gracias", 
-        "Buenos días",
-        "De nada",
-        "Por favor"
-    ]
+    "answers": ["Hola", "Gracias", "Buenos días", "De nada", "Por favor"]
 }
 ```
 
@@ -11889,18 +11996,7 @@ function loadQuizForTaking(quizId) {
 
 ```json
 {
-    "answers": [
-        "A",
-        "C",
-        "B", 
-        "D",
-        "A",
-        "B",
-        "C",
-        "A",
-        "D",
-        "B"
-    ]
+    "answers": ["A", "C", "B", "D", "A", "B", "C", "A", "D", "B"]
 }
 ```
 
@@ -11912,7 +12008,7 @@ function loadQuizForTaking(quizId) {
         "Hello",
         "B",
         "Thank you",
-        "A", 
+        "A",
         "Good morning",
         "C",
         "Excuse me",
@@ -12105,7 +12201,7 @@ curl -X POST "https://your-domain.com/api/student/quizzes/15/attempt" \
   -d '{
     "answers": [
       "Hola",
-      "Gracias", 
+      "Gracias",
       "Buenos días",
       "De nada",
       "Por favor"
@@ -12131,7 +12227,7 @@ curl -X POST "https://your-domain.com/api/student/quizzes/8/attempt" \
     "answers": [
       "Hello",
       "B",
-      "Thank you", 
+      "Thank you",
       "A",
       "Good morning",
       "C"
@@ -12154,55 +12250,57 @@ class QuizAttemptManager {
             const response = await fetch(
                 `${this.apiBaseUrl}/student/quizzes/${quizId}/attempt`,
                 {
-                    method: 'POST',
+                    method: "POST",
                     headers: {
-                        'Authorization': `Bearer ${this.authToken}`,
-                        'Content-Type': 'application/json'
+                        Authorization: `Bearer ${this.authToken}`,
+                        "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ answers })
+                    body: JSON.stringify({ answers }),
                 }
             );
 
             const data = await response.json();
-            
+
             if (data.success) {
                 this.handleSuccessfulSubmission(data.data);
             } else {
                 this.handleSubmissionError(data);
             }
-            
+
             return data;
         } catch (error) {
-            console.error('Quiz submission failed:', error);
+            console.error("Quiz submission failed:", error);
             throw error;
         }
     }
 
     handleSuccessfulSubmission(attemptData) {
         const { percentage, passed, performance, next_steps } = attemptData;
-        
+
         console.log(`Quiz completed! Score: ${percentage}%`);
-        
+
         if (passed) {
-            console.log('🎉 Congratulations! You passed!');
-            
+            console.log("🎉 Congratulations! You passed!");
+
             if (performance.achievement) {
                 console.log(`🏆 Achievement: ${performance.achievement}`);
             }
-            
+
             if (next_steps.advancement_eligible) {
-                console.log('🚀 You\'re eligible for the next level!');
+                console.log("🚀 You're eligible for the next level!");
             }
         } else {
-            console.log('📚 Keep studying! You can do better next time.');
-            
+            console.log("📚 Keep studying! You can do better next time.");
+
             if (next_steps.can_retake) {
-                console.log(`🔄 Retake available at: ${next_steps.retake_available_at}`);
+                console.log(
+                    `🔄 Retake available at: ${next_steps.retake_available_at}`
+                );
             }
-            
+
             if (next_steps.recommended_study_areas) {
-                console.log('📖 Recommended study areas:');
-                next_steps.recommended_study_areas.forEach(area => {
+                console.log("📖 Recommended study areas:");
+                next_steps.recommended_study_areas.forEach((area) => {
                     console.log(`  - ${area}`);
                 });
             }
@@ -12210,59 +12308,60 @@ class QuizAttemptManager {
     }
 
     handleSubmissionError(errorData) {
-        console.error('Submission failed:', errorData.message);
-        
+        console.error("Submission failed:", errorData.message);
+
         if (errorData.errors) {
-            console.error('Validation errors:', errorData.errors);
+            console.error("Validation errors:", errorData.errors);
         }
     }
 
     async validateAnswers(answers, expectedCount) {
         if (!Array.isArray(answers)) {
-            throw new Error('Answers must be an array');
+            throw new Error("Answers must be an array");
         }
-        
+
         if (answers.length !== expectedCount) {
-            throw new Error(`Expected ${expectedCount} answers, got ${answers.length}`);
+            throw new Error(
+                `Expected ${expectedCount} answers, got ${answers.length}`
+            );
         }
-        
+
         // Check for empty answers
-        const emptyAnswers = answers.findIndex(answer => !answer || answer.trim() === '');
+        const emptyAnswers = answers.findIndex(
+            (answer) => !answer || answer.trim() === ""
+        );
         if (emptyAnswers !== -1) {
             throw new Error(`Answer ${emptyAnswers + 1} is empty`);
         }
-        
+
         return true;
     }
 }
 
 // Usage examples
-const quizManager = new QuizAttemptManager('https://your-domain.com/api', studentToken);
+const quizManager = new QuizAttemptManager(
+    "https://your-domain.com/api",
+    studentToken
+);
 
 // Submit a basic quiz attempt
 async function takeQuiz() {
     const quizId = 15;
-    const answers = [
-        'Hola',
-        'Gracias',
-        'Buenos días', 
-        'De nada',
-        'Por favor'
-    ];
-    
+    const answers = ["Hola", "Gracias", "Buenos días", "De nada", "Por favor"];
+
     try {
         // Validate answers before submission
         await quizManager.validateAnswers(answers, 5);
-        
+
         // Submit the attempt
         const result = await quizManager.submitAttempt(quizId, answers);
-        
+
         // Handle the result
         if (result.success) {
             displayQuizResults(result.data);
         }
     } catch (error) {
-        console.error('Quiz submission error:', error.message);
+        console.error("Quiz submission error:", error.message);
         displayErrorMessage(error.message);
     }
 }
@@ -12270,61 +12369,81 @@ async function takeQuiz() {
 // Interactive quiz taking function
 async function interactiveQuizTaking(quizId, questions) {
     const answers = [];
-    
+
     // Collect answers from user interface
     for (let i = 0; i < questions.length; i++) {
         const question = questions[i];
         console.log(`Question ${i + 1}: ${question.text}`);
-        
-        if (question.type === 'multiple_choice') {
-            console.log('Options:', question.choices);
+
+        if (question.type === "multiple_choice") {
+            console.log("Options:", question.choices);
         }
-        
+
         // In a real app, this would be user input
         const answer = await getUserAnswer(question);
         answers.push(answer);
     }
-    
+
     // Submit all answers
     return quizManager.submitAttempt(quizId, answers);
 }
 
 // Progress tracking after quiz submission
 function displayQuizResults(attemptData) {
-    const resultsContainer = document.getElementById('quiz-results');
-    
+    const resultsContainer = document.getElementById("quiz-results");
+
     resultsContainer.innerHTML = `
         <div class="quiz-results">
             <h3>Quiz Results</h3>
-            <div class="score ${attemptData.passed ? 'passed' : 'failed'}">
+            <div class="score ${attemptData.passed ? "passed" : "failed"}">
                 <span class="percentage">${attemptData.percentage}%</span>
-                <span class="status">${attemptData.passed ? 'PASSED' : 'FAILED'}</span>
+                <span class="status">${
+                    attemptData.passed ? "PASSED" : "FAILED"
+                }</span>
             </div>
             
             <div class="performance">
-                <p>Correct: ${attemptData.performance.correct_answers}/${attemptData.total_questions}</p>
+                <p>Correct: ${attemptData.performance.correct_answers}/${
+        attemptData.total_questions
+    }</p>
                 <p>Accuracy: ${attemptData.performance.accuracy_rate}%</p>
-                ${attemptData.performance.improvement_from_last !== undefined ? 
-                    `<p>Improvement: ${attemptData.performance.improvement_from_last > 0 ? '+' : ''}${attemptData.performance.improvement_from_last}%</p>` : ''
+                ${
+                    attemptData.performance.improvement_from_last !== undefined
+                        ? `<p>Improvement: ${
+                              attemptData.performance.improvement_from_last > 0
+                                  ? "+"
+                                  : ""
+                          }${
+                              attemptData.performance.improvement_from_last
+                          }%</p>`
+                        : ""
                 }
             </div>
             
-            ${attemptData.next_steps.recommended_study_areas ? `
+            ${
+                attemptData.next_steps.recommended_study_areas
+                    ? `
                 <div class="recommendations">
                     <h4>Study Recommendations:</h4>
                     <ul>
-                        ${attemptData.next_steps.recommended_study_areas.map(area => 
-                            `<li>${area}</li>`
-                        ).join('')}
+                        ${attemptData.next_steps.recommended_study_areas
+                            .map((area) => `<li>${area}</li>`)
+                            .join("")}
                     </ul>
                 </div>
-            ` : ''}
+            `
+                    : ""
+            }
             
-            ${attemptData.next_steps.can_retake ? `
+            ${
+                attemptData.next_steps.can_retake
+                    ? `
                 <button onclick="retakeQuiz(${attemptData.quiz_id})" class="retake-btn">
                     Retake Quiz
                 </button>
-            ` : ''}
+            `
+                    : ""
+            }
         </div>
     `;
 }
@@ -12332,7 +12451,7 @@ function displayQuizResults(attemptData) {
 
 **Python Integration Examples**:
 
-```python
+````python
 import requests
 from typing import List, Dict, Any
 from datetime import datetime
@@ -12350,16 +12469,16 @@ class QuizAttemptManager:
         """Submit a quiz attempt with answers"""
         url = f"{self.api_base_url}/student/quizzes/{quiz_id}/attempt"
         payload = {'answers': answers}
-        
+
         try:
             response = requests.post(url, json=payload, headers=self.headers)
             data = response.json()
-            
+
             if data.get('success'):
                 self._handle_successful_submission(data['data'])
             else:
                 self._handle_submission_error(data)
-            
+
             return data
         except requests.exceptions.RequestException as e:
             print(f"Quiz submission failed: {e}")
@@ -12371,24 +12490,24 @@ class QuizAttemptManager:
         passed = attempt_data['passed']
         performance = attempt_data.get('performance', {})
         next_steps = attempt_data.get('next_steps', {})
-        
+
         print(f"Quiz completed! Score: {percentage}%")
-        
+
         if passed:
             print("🎉 Congratulations! You passed!")
-            
+
             if performance.get('achievement'):
                 print(f"🏆 Achievement: {performance['achievement']}")
-            
+
             if next_steps.get('advancement_eligible'):
                 print("🚀 You're eligible for the next level!")
         else:
             print("📚 Keep studying! You can do better next time.")
-            
+
             if next_steps.get('can_retake'):
                 retake_time = next_steps.get('retake_available_at')
                 print(f"🔄 Retake available at: {retake_time}")
-            
+
             study_areas = next_steps.get('recommended_study_areas', [])
             if study_areas:
                 print("📖 Recommended study areas:")
@@ -12398,7 +12517,7 @@ class QuizAttemptManager:
     def _handle_submission_error(self, error_data: Dict[str, Any]):
         """Handle submission errors"""
         print(f"Submission failed: {error_data.get('message', 'Unknown error')}")
-        
+
         if 'errors' in error_data:
             print("Validation errors:")
             for field, messages in error_data['errors'].items():
@@ -12409,15 +12528,15 @@ class QuizAttemptManager:
         """Validate answers before submission"""
         if not isinstance(answers, list):
             raise ValueError("Answers must be a list")
-        
+
         if len(answers) != expected_count:
             raise ValueError(f"Expected {expected_count} answers, got {len(answers)}")
-        
+
         # Check for empty answers
         for i, answer in enumerate(answers):
             if not answer or not answer.strip():
                 raise ValueError(f"Answer {i + 1} is empty")
-        
+
         return True
 
     def submit_multiple_choice_quiz(self, quiz_id: int, selected_options: List[str]) -> Dict[str, Any]:
@@ -12457,23 +12576,24 @@ curl -X POST "https://your-domain.com/api/auth/register" \
     "notify_email": true,
     "notify_whatsapp": false
   }'
-```
+````
 
 **Response:**
+
 ```json
 {
-  "success": true,
-  "message": "User registered successfully",
-  "data": {
-    "user": {
-      "id": 156,
-      "name": "Sarah Johnson",
-      "email": "sarah.johnson@example.com",
-      "role": "student",
-      "preferred_language": "en"
-    },
-    "token": "1|abc123def456ghi789jkl012mno345pqr678stu901vwx234yz"
-  }
+    "success": true,
+    "message": "User registered successfully",
+    "data": {
+        "user": {
+            "id": 156,
+            "name": "Sarah Johnson",
+            "email": "sarah.johnson@example.com",
+            "role": "student",
+            "preferred_language": "en"
+        },
+        "token": "1|abc123def456ghi789jkl012mno345pqr678stu901vwx234yz"
+    }
 }
 ```
 
@@ -12511,108 +12631,108 @@ curl -X POST "https://your-domain.com/api/auth/logout" \
 
 ```javascript
 class AuthManager {
-  constructor(apiBaseUrl) {
-    this.apiBaseUrl = apiBaseUrl;
-    this.token = localStorage.getItem('auth_token');
-  }
-
-  async register(userData) {
-    try {
-      const response = await fetch(`${this.apiBaseUrl}/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData)
-      });
-
-      const data = await response.json();
-      
-      if (data.success) {
-        this.token = data.data.token;
-        localStorage.setItem('auth_token', this.token);
-        return { success: true, user: data.data.user };
-      } else {
-        return { success: false, errors: data.errors };
-      }
-    } catch (error) {
-      return { success: false, error: error.message };
+    constructor(apiBaseUrl) {
+        this.apiBaseUrl = apiBaseUrl;
+        this.token = localStorage.getItem("auth_token");
     }
-  }
 
-  async login(email, password) {
-    try {
-      const response = await fetch(`${this.apiBaseUrl}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password })
-      });
+    async register(userData) {
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/auth/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
 
-      const data = await response.json();
-      
-      if (data.success) {
-        this.token = data.data.token;
-        localStorage.setItem('auth_token', this.token);
-        return { success: true, user: data.data.user };
-      } else {
-        return { success: false, message: data.message };
-      }
-    } catch (error) {
-      return { success: false, error: error.message };
-    }
-  }
+            const data = await response.json();
 
-  async logout() {
-    try {
-      await fetch(`${this.apiBaseUrl}/auth/logout`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.token}`,
-          'Content-Type': 'application/json',
+            if (data.success) {
+                this.token = data.data.token;
+                localStorage.setItem("auth_token", this.token);
+                return { success: true, user: data.data.user };
+            } else {
+                return { success: false, errors: data.errors };
+            }
+        } catch (error) {
+            return { success: false, error: error.message };
         }
-      });
-    } finally {
-      this.token = null;
-      localStorage.removeItem('auth_token');
     }
-  }
 
-  getAuthHeaders() {
-    return {
-      'Authorization': `Bearer ${this.token}`,
-      'Content-Type': 'application/json'
-    };
-  }
+    async login(email, password) {
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-  isAuthenticated() {
-    return !!this.token;
-  }
+            const data = await response.json();
+
+            if (data.success) {
+                this.token = data.data.token;
+                localStorage.setItem("auth_token", this.token);
+                return { success: true, user: data.data.user };
+            } else {
+                return { success: false, message: data.message };
+            }
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
+
+    async logout() {
+        try {
+            await fetch(`${this.apiBaseUrl}/auth/logout`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+        } finally {
+            this.token = null;
+            localStorage.removeItem("auth_token");
+        }
+    }
+
+    getAuthHeaders() {
+        return {
+            Authorization: `Bearer ${this.token}`,
+            "Content-Type": "application/json",
+        };
+    }
+
+    isAuthenticated() {
+        return !!this.token;
+    }
 }
 
 // Usage example
-const auth = new AuthManager('https://your-domain.com/api');
+const auth = new AuthManager("https://your-domain.com/api");
 
 // Register new user
 async function registerUser() {
-  const result = await auth.register({
-    name: "Sarah Johnson",
-    email: "sarah.johnson@example.com",
-    password: "SecurePass123!",
-    password_confirmation: "SecurePass123!",
-    phone: "+1-555-123-4567",
-    role: "student",
-    preferred_language: "en",
-    notify_email: true,
-    notify_whatsapp: false
-  });
+    const result = await auth.register({
+        name: "Sarah Johnson",
+        email: "sarah.johnson@example.com",
+        password: "SecurePass123!",
+        password_confirmation: "SecurePass123!",
+        phone: "+1-555-123-4567",
+        role: "student",
+        preferred_language: "en",
+        notify_email: true,
+        notify_whatsapp: false,
+    });
 
-  if (result.success) {
-    console.log('Registration successful:', result.user);
-  } else {
-    console.error('Registration failed:', result.errors);
-  }
+    if (result.success) {
+        console.log("Registration successful:", result.user);
+    } else {
+        console.error("Registration failed:", result.errors);
+    }
 }
 ```
 
@@ -12712,162 +12832,175 @@ curl -X GET "https://your-domain.com/api/student/meetings/upcoming" \
 
 ```javascript
 class StudentLearningApp {
-  constructor(apiBaseUrl) {
-    this.apiBaseUrl = apiBaseUrl;
-    this.auth = new AuthManager(apiBaseUrl);
-  }
-
-  async initialize() {
-    if (!this.auth.isAuthenticated()) {
-      throw new Error('User must be authenticated');
+    constructor(apiBaseUrl) {
+        this.apiBaseUrl = apiBaseUrl;
+        this.auth = new AuthManager(apiBaseUrl);
     }
 
-    // Load initial data
-    const [programs, enrollments, quizzes] = await Promise.all([
-      this.getPrograms(),
-      this.getEnrollments(),
-      this.getQuizzes()
-    ]);
+    async initialize() {
+        if (!this.auth.isAuthenticated()) {
+            throw new Error("User must be authenticated");
+        }
 
-    return {
-      programs: programs.data,
-      enrollments: enrollments.data,
-      quizzes: quizzes.data
-    };
-  }
+        // Load initial data
+        const [programs, enrollments, quizzes] = await Promise.all([
+            this.getPrograms(),
+            this.getEnrollments(),
+            this.getQuizzes(),
+        ]);
 
-  async getPrograms() {
-    const response = await fetch(`${this.apiBaseUrl}/student/programs`, {
-      headers: this.auth.getAuthHeaders()
-    });
-    return response.json();
-  }
-
-  async getEnrollments() {
-    const response = await fetch(`${this.apiBaseUrl}/student/enrollments`, {
-      headers: this.auth.getAuthHeaders()
-    });
-    return response.json();
-  }
-
-  async getQuizzes() {
-    const response = await fetch(`${this.apiBaseUrl}/student/quizzes`, {
-      headers: this.auth.getAuthHeaders()
-    });
-    return response.json();
-  }
-
-  async takeQuiz(quizId) {
-    // Load quiz
-    const quizResponse = await fetch(`${this.apiBaseUrl}/student/quizzes/${quizId}`, {
-      headers: this.auth.getAuthHeaders()
-    });
-    const quizData = await quizResponse.json();
-
-    if (!quizData.success) {
-      throw new Error(quizData.message);
+        return {
+            programs: programs.data,
+            enrollments: enrollments.data,
+            quizzes: quizzes.data,
+        };
     }
 
-    // Present quiz to user and collect answers
-    const answers = await this.presentQuizToUser(quizData.data);
-
-    // Submit attempt
-    const attemptResponse = await fetch(`${this.apiBaseUrl}/student/quizzes/${quizId}/attempt`, {
-      method: 'POST',
-      headers: this.auth.getAuthHeaders(),
-      body: JSON.stringify({ answers })
-    });
-
-    const attemptResult = await attemptResponse.json();
-
-    if (attemptResult.success) {
-      // Load detailed results
-      const resultsResponse = await fetch(
-        `${this.apiBaseUrl}/student/quizzes/${quizId}/attempts/${attemptResult.data.attempt_id}/results`,
-        { headers: this.auth.getAuthHeaders() }
-      );
-      const detailedResults = await resultsResponse.json();
-
-      return {
-        attempt: attemptResult.data,
-        results: detailedResults.data
-      };
-    } else {
-      throw new Error(attemptResult.message);
-    }
-  }
-
-  async presentQuizToUser(quiz) {
-    // This would integrate with your UI framework
-    console.log(`Taking quiz: ${quiz.title}`);
-    console.log(`Questions: ${quiz.questions.length}`);
-
-    const answers = [];
-    for (let i = 0; i < quiz.questions.length; i++) {
-      const question = quiz.questions[i];
-      console.log(`Question ${i + 1}: ${question.question}`);
-      
-      // In a real app, this would be user input
-      const answer = prompt(`Answer for question ${i + 1}:`);
-      answers.push(answer);
+    async getPrograms() {
+        const response = await fetch(`${this.apiBaseUrl}/student/programs`, {
+            headers: this.auth.getAuthHeaders(),
+        });
+        return response.json();
     }
 
-    return answers;
-  }
-
-  async getProgressSummary() {
-    const attemptsResponse = await fetch(`${this.apiBaseUrl}/student/quizzes/attempts/my`, {
-      headers: this.auth.getAuthHeaders()
-    });
-    const attempts = await attemptsResponse.json();
-
-    if (attempts.success) {
-      const summary = {
-        totalAttempts: attempts.data.total,
-        averageScore: 0,
-        passedQuizzes: 0,
-        recentAttempts: attempts.data.data.slice(0, 5)
-      };
-
-      if (attempts.data.data.length > 0) {
-        const totalScore = attempts.data.data.reduce((sum, attempt) => sum + attempt.percentage_score, 0);
-        summary.averageScore = totalScore / attempts.data.data.length;
-        summary.passedQuizzes = attempts.data.data.filter(attempt => attempt.passed).length;
-      }
-
-      return summary;
+    async getEnrollments() {
+        const response = await fetch(`${this.apiBaseUrl}/student/enrollments`, {
+            headers: this.auth.getAuthHeaders(),
+        });
+        return response.json();
     }
 
-    throw new Error('Failed to load progress summary');
-  }
+    async getQuizzes() {
+        const response = await fetch(`${this.apiBaseUrl}/student/quizzes`, {
+            headers: this.auth.getAuthHeaders(),
+        });
+        return response.json();
+    }
+
+    async takeQuiz(quizId) {
+        // Load quiz
+        const quizResponse = await fetch(
+            `${this.apiBaseUrl}/student/quizzes/${quizId}`,
+            {
+                headers: this.auth.getAuthHeaders(),
+            }
+        );
+        const quizData = await quizResponse.json();
+
+        if (!quizData.success) {
+            throw new Error(quizData.message);
+        }
+
+        // Present quiz to user and collect answers
+        const answers = await this.presentQuizToUser(quizData.data);
+
+        // Submit attempt
+        const attemptResponse = await fetch(
+            `${this.apiBaseUrl}/student/quizzes/${quizId}/attempt`,
+            {
+                method: "POST",
+                headers: this.auth.getAuthHeaders(),
+                body: JSON.stringify({ answers }),
+            }
+        );
+
+        const attemptResult = await attemptResponse.json();
+
+        if (attemptResult.success) {
+            // Load detailed results
+            const resultsResponse = await fetch(
+                `${this.apiBaseUrl}/student/quizzes/${quizId}/attempts/${attemptResult.data.attempt_id}/results`,
+                { headers: this.auth.getAuthHeaders() }
+            );
+            const detailedResults = await resultsResponse.json();
+
+            return {
+                attempt: attemptResult.data,
+                results: detailedResults.data,
+            };
+        } else {
+            throw new Error(attemptResult.message);
+        }
+    }
+
+    async presentQuizToUser(quiz) {
+        // This would integrate with your UI framework
+        console.log(`Taking quiz: ${quiz.title}`);
+        console.log(`Questions: ${quiz.questions.length}`);
+
+        const answers = [];
+        for (let i = 0; i < quiz.questions.length; i++) {
+            const question = quiz.questions[i];
+            console.log(`Question ${i + 1}: ${question.question}`);
+
+            // In a real app, this would be user input
+            const answer = prompt(`Answer for question ${i + 1}:`);
+            answers.push(answer);
+        }
+
+        return answers;
+    }
+
+    async getProgressSummary() {
+        const attemptsResponse = await fetch(
+            `${this.apiBaseUrl}/student/quizzes/attempts/my`,
+            {
+                headers: this.auth.getAuthHeaders(),
+            }
+        );
+        const attempts = await attemptsResponse.json();
+
+        if (attempts.success) {
+            const summary = {
+                totalAttempts: attempts.data.total,
+                averageScore: 0,
+                passedQuizzes: 0,
+                recentAttempts: attempts.data.data.slice(0, 5),
+            };
+
+            if (attempts.data.data.length > 0) {
+                const totalScore = attempts.data.data.reduce(
+                    (sum, attempt) => sum + attempt.percentage_score,
+                    0
+                );
+                summary.averageScore = totalScore / attempts.data.data.length;
+                summary.passedQuizzes = attempts.data.data.filter(
+                    (attempt) => attempt.passed
+                ).length;
+            }
+
+            return summary;
+        }
+
+        throw new Error("Failed to load progress summary");
+    }
 }
 
 // Usage example
 async function runStudentApp() {
-  const app = new StudentLearningApp('https://your-domain.com/api');
-  
-  try {
-    // Initialize app
-    const initialData = await app.initialize();
-    console.log('Available programs:', initialData.programs.length);
-    console.log('Available quizzes:', initialData.quizzes.length);
+    const app = new StudentLearningApp("https://your-domain.com/api");
 
-    // Take a quiz
-    if (initialData.quizzes.length > 0) {
-      const firstQuiz = initialData.quizzes[0];
-      const quizResult = await app.takeQuiz(firstQuiz.id);
-      console.log(`Quiz completed! Score: ${quizResult.attempt.score}%`);
+    try {
+        // Initialize app
+        const initialData = await app.initialize();
+        console.log("Available programs:", initialData.programs.length);
+        console.log("Available quizzes:", initialData.quizzes.length);
+
+        // Take a quiz
+        if (initialData.quizzes.length > 0) {
+            const firstQuiz = initialData.quizzes[0];
+            const quizResult = await app.takeQuiz(firstQuiz.id);
+            console.log(`Quiz completed! Score: ${quizResult.attempt.score}%`);
+        }
+
+        // Get progress summary
+        const progress = await app.getProgressSummary();
+        console.log(`Total attempts: ${progress.totalAttempts}`);
+        console.log(`Average score: ${progress.averageScore.toFixed(1)}%`);
+        console.log(`Passed quizzes: ${progress.passedQuizzes}`);
+    } catch (error) {
+        console.error("App error:", error.message);
     }
-
-    // Get progress summary
-    const progress = await app.getProgressSummary();
-    console.log(`Total attempts: ${progress.totalAttempts}`);
-    console.log(`Average score: ${progress.averageScore.toFixed(1)}%`);
-    console.log(`Passed quizzes: ${progress.passedQuizzes}`);
-
-  } catch (error) {
-    console.error('App error:', error.message);
-  }
 }
 ```
 
@@ -12975,144 +13108,182 @@ curl -X GET "https://your-domain.com/api/teacher/quizzes/25/attempts/127/results
 
 ```javascript
 class TeacherQuizManager {
-  constructor(apiBaseUrl, authToken) {
-    this.apiBaseUrl = apiBaseUrl;
-    this.authToken = authToken;
-  }
+    constructor(apiBaseUrl, authToken) {
+        this.apiBaseUrl = apiBaseUrl;
+        this.authToken = authToken;
+    }
 
-  getAuthHeaders() {
-    return {
-      'Authorization': `Bearer ${this.authToken}`,
-      'Content-Type': 'application/json'
-    };
-  }
+    getAuthHeaders() {
+        return {
+            Authorization: `Bearer ${this.authToken}`,
+            "Content-Type": "application/json",
+        };
+    }
 
-  async createQuiz(quizData) {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes`, {
-      method: 'POST',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify(quizData)
-    });
-    return response.json();
-  }
+    async createQuiz(quizData) {
+        const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes`, {
+            method: "POST",
+            headers: this.getAuthHeaders(),
+            body: JSON.stringify(quizData),
+        });
+        return response.json();
+    }
 
-  async getMyQuizzes() {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes`, {
-      headers: this.getAuthHeaders()
-    });
-    return response.json();
-  }
+    async getMyQuizzes() {
+        const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes`, {
+            headers: this.getAuthHeaders(),
+        });
+        return response.json();
+    }
 
-  async updateQuiz(quizId, updates) {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes/${quizId}`, {
-      method: 'PUT',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify(updates)
-    });
-    return response.json();
-  }
+    async updateQuiz(quizId, updates) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/teacher/quizzes/${quizId}`,
+            {
+                method: "PUT",
+                headers: this.getAuthHeaders(),
+                body: JSON.stringify(updates),
+            }
+        );
+        return response.json();
+    }
 
-  async addQuestion(quizId, questionData) {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes/${quizId}/questions`, {
-      method: 'POST',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify(questionData)
-    });
-    return response.json();
-  }
+    async addQuestion(quizId, questionData) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/teacher/quizzes/${quizId}/questions`,
+            {
+                method: "POST",
+                headers: this.getAuthHeaders(),
+                body: JSON.stringify(questionData),
+            }
+        );
+        return response.json();
+    }
 
-  async updateQuestion(quizId, questionId, questionData) {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes/${quizId}/questions/${questionId}`, {
-      method: 'PUT',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify(questionData)
-    });
-    return response.json();
-  }
+    async updateQuestion(quizId, questionId, questionData) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/teacher/quizzes/${quizId}/questions/${questionId}`,
+            {
+                method: "PUT",
+                headers: this.getAuthHeaders(),
+                body: JSON.stringify(questionData),
+            }
+        );
+        return response.json();
+    }
 
-  async deleteQuestion(quizId, questionId) {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes/${quizId}/questions/${questionId}`, {
-      method: 'DELETE',
-      headers: this.getAuthHeaders()
-    });
-    return response.json();
-  }
+    async deleteQuestion(quizId, questionId) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/teacher/quizzes/${quizId}/questions/${questionId}`,
+            {
+                method: "DELETE",
+                headers: this.getAuthHeaders(),
+            }
+        );
+        return response.json();
+    }
 
-  async reorderQuestions(quizId, questionOrder) {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes/${quizId}/questions/reorder`, {
-      method: 'POST',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify({ question_order: questionOrder })
-    });
-    return response.json();
-  }
+    async reorderQuestions(quizId, questionOrder) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/teacher/quizzes/${quizId}/questions/reorder`,
+            {
+                method: "POST",
+                headers: this.getAuthHeaders(),
+                body: JSON.stringify({ question_order: questionOrder }),
+            }
+        );
+        return response.json();
+    }
 
-  async getQuizStatistics(quizId) {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes/${quizId}/statistics`, {
-      headers: this.getAuthHeaders()
-    });
-    return response.json();
-  }
+    async getQuizStatistics(quizId) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/teacher/quizzes/${quizId}/statistics`,
+            {
+                headers: this.getAuthHeaders(),
+            }
+        );
+        return response.json();
+    }
 
-  async getQuizAttempts(quizId, page = 1) {
-    const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes/${quizId}/attempts?page=${page}`, {
-      headers: this.getAuthHeaders()
-    });
-    return response.json();
-  }
+    async getQuizAttempts(quizId, page = 1) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/teacher/quizzes/${quizId}/attempts?page=${page}`,
+            {
+                headers: this.getAuthHeaders(),
+            }
+        );
+        return response.json();
+    }
 }
 
 // Usage example
-const quizManager = new TeacherQuizManager('https://your-domain.com/api', teacherToken);
+const quizManager = new TeacherQuizManager(
+    "https://your-domain.com/api",
+    teacherToken
+);
 
 async function createCompleteQuiz() {
-  try {
-    // Create quiz with initial questions
-    const quizData = {
-      title: "Spanish Vocabulary - Greetings",
-      description: "Test your knowledge of Spanish greeting words and phrases",
-      type: "inline",
-      program_id: 8,
-      questions: [
-        {
-          question: "What is the Spanish word for \"hello\"?",
-          choices: ["Hola", "Adiós", "Gracias", "Por favor"],
-          correct_answer: "Hola"
-        },
-        {
-          question: "How do you say \"good morning\" in Spanish?",
-          choices: ["Buenas noches", "Buenos días", "Buenas tardes", "Hasta luego"],
-          correct_answer: "Buenos días"
+    try {
+        // Create quiz with initial questions
+        const quizData = {
+            title: "Spanish Vocabulary - Greetings",
+            description:
+                "Test your knowledge of Spanish greeting words and phrases",
+            type: "inline",
+            program_id: 8,
+            questions: [
+                {
+                    question: 'What is the Spanish word for "hello"?',
+                    choices: ["Hola", "Adiós", "Gracias", "Por favor"],
+                    correct_answer: "Hola",
+                },
+                {
+                    question: 'How do you say "good morning" in Spanish?',
+                    choices: [
+                        "Buenas noches",
+                        "Buenos días",
+                        "Buenas tardes",
+                        "Hasta luego",
+                    ],
+                    correct_answer: "Buenos días",
+                },
+            ],
+        };
+
+        const createResult = await quizManager.createQuiz(quizData);
+
+        if (createResult.success) {
+            const quizId = createResult.data.id;
+            console.log(`Quiz created with ID: ${quizId}`);
+
+            // Add additional question
+            const additionalQuestion = {
+                question: 'What does "¿Cómo estás?" mean in English?',
+                choices: [
+                    "What is your name?",
+                    "How are you?",
+                    "Where are you from?",
+                    "How old are you?",
+                ],
+                correct_answer: "How are you?",
+            };
+
+            const addResult = await quizManager.addQuestion(
+                quizId,
+                additionalQuestion
+            );
+
+            if (addResult.success) {
+                console.log("Additional question added successfully");
+
+                // Get quiz statistics
+                const stats = await quizManager.getQuizStatistics(quizId);
+                console.log("Quiz statistics:", stats.data);
+            }
         }
-      ]
-    };
-
-    const createResult = await quizManager.createQuiz(quizData);
-    
-    if (createResult.success) {
-      const quizId = createResult.data.id;
-      console.log(`Quiz created with ID: ${quizId}`);
-
-      // Add additional question
-      const additionalQuestion = {
-        question: "What does \"¿Cómo estás?\" mean in English?",
-        choices: ["What is your name?", "How are you?", "Where are you from?", "How old are you?"],
-        correct_answer: "How are you?"
-      };
-
-      const addResult = await quizManager.addQuestion(quizId, additionalQuestion);
-      
-      if (addResult.success) {
-        console.log('Additional question added successfully');
-        
-        // Get quiz statistics
-        const stats = await quizManager.getQuizStatistics(quizId);
-        console.log('Quiz statistics:', stats.data);
-      }
+    } catch (error) {
+        console.error("Error creating quiz:", error);
     }
-  } catch (error) {
-    console.error('Error creating quiz:', error);
-  }
 }
 ```
 
@@ -13136,71 +13307,71 @@ curl -X PUT "https://your-domain.com/api/teacher/profile" \
 
 ```javascript
 class FileUploadManager {
-  constructor(apiBaseUrl, authToken) {
-    this.apiBaseUrl = apiBaseUrl;
-    this.authToken = authToken;
-  }
-
-  async uploadTeacherProfileImage(profileData, imageFile) {
-    const formData = new FormData();
-    
-    // Add profile data
-    Object.keys(profileData).forEach(key => {
-      formData.append(key, profileData[key]);
-    });
-    
-    // Add image file
-    if (imageFile) {
-      formData.append('image', imageFile);
+    constructor(apiBaseUrl, authToken) {
+        this.apiBaseUrl = apiBaseUrl;
+        this.authToken = authToken;
     }
 
-    try {
-      const response = await fetch(`${this.apiBaseUrl}/teacher/profile`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${this.authToken}`
-          // Note: Don't set Content-Type for FormData, browser will set it automatically
-        },
-        body: formData
-      });
+    async uploadTeacherProfileImage(profileData, imageFile) {
+        const formData = new FormData();
 
-      return await response.json();
-    } catch (error) {
-      throw new Error(`Upload failed: ${error.message}`);
+        // Add profile data
+        Object.keys(profileData).forEach((key) => {
+            formData.append(key, profileData[key]);
+        });
+
+        // Add image file
+        if (imageFile) {
+            formData.append("image", imageFile);
+        }
+
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/teacher/profile`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${this.authToken}`,
+                    // Note: Don't set Content-Type for FormData, browser will set it automatically
+                },
+                body: formData,
+            });
+
+            return await response.json();
+        } catch (error) {
+            throw new Error(`Upload failed: ${error.message}`);
+        }
     }
-  }
 
-  async uploadQuizFile(quizData, file) {
-    const formData = new FormData();
-    
-    // Add quiz data
-    formData.append('title', quizData.title);
-    formData.append('description', quizData.description || '');
-    formData.append('type', 'file');
-    formData.append('program_id', quizData.program_id);
-    
-    // Add file
-    formData.append('file', file);
+    async uploadQuizFile(quizData, file) {
+        const formData = new FormData();
 
-    try {
-      const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.authToken}`
-        },
-        body: formData
-      });
+        // Add quiz data
+        formData.append("title", quizData.title);
+        formData.append("description", quizData.description || "");
+        formData.append("type", "file");
+        formData.append("program_id", quizData.program_id);
 
-      return await response.json();
-    } catch (error) {
-      throw new Error(`Quiz file upload failed: ${error.message}`);
+        // Add file
+        formData.append("file", file);
+
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/teacher/quizzes`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${this.authToken}`,
+                },
+                body: formData,
+            });
+
+            return await response.json();
+        } catch (error) {
+            throw new Error(`Quiz file upload failed: ${error.message}`);
+        }
     }
-  }
 }
 
 // HTML form example
 function createFileUploadForm() {
-  return `
+    return `
     <form id="profileUploadForm" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Full Name" required>
       <input type="tel" name="phone" placeholder="Phone Number">
@@ -13216,36 +13387,44 @@ function createFileUploadForm() {
 }
 
 // Form submission handler
-document.getElementById('profileUploadForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const formData = new FormData(e.target);
-  const imageFile = formData.get('image');
-  
-  const profileData = {
-    name: formData.get('name'),
-    phone: formData.get('phone'),
-    preferred_language: formData.get('preferred_language')
-  };
+document
+    .getElementById("profileUploadForm")
+    .addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-  const uploadManager = new FileUploadManager('https://your-domain.com/api', teacherToken);
-  
-  try {
-    const result = await uploadManager.uploadTeacherProfileImage(profileData, imageFile);
-    
-    if (result.success) {
-      console.log('Profile updated successfully:', result.data);
-      // Update UI with new profile data
-    } else {
-      console.error('Upload failed:', result.message);
-      if (result.errors) {
-        console.error('Validation errors:', result.errors);
-      }
-    }
-  } catch (error) {
-    console.error('Upload error:', error.message);
-  }
-});
+        const formData = new FormData(e.target);
+        const imageFile = formData.get("image");
+
+        const profileData = {
+            name: formData.get("name"),
+            phone: formData.get("phone"),
+            preferred_language: formData.get("preferred_language"),
+        };
+
+        const uploadManager = new FileUploadManager(
+            "https://your-domain.com/api",
+            teacherToken
+        );
+
+        try {
+            const result = await uploadManager.uploadTeacherProfileImage(
+                profileData,
+                imageFile
+            );
+
+            if (result.success) {
+                console.log("Profile updated successfully:", result.data);
+                // Update UI with new profile data
+            } else {
+                console.error("Upload failed:", result.message);
+                if (result.errors) {
+                    console.error("Validation errors:", result.errors);
+                }
+            }
+        } catch (error) {
+            console.error("Upload error:", error.message);
+        }
+    });
 ```
 
 #### File Upload Validation Examples
@@ -13254,56 +13433,70 @@ document.getElementById('profileUploadForm').addEventListener('submit', async (e
 
 ```javascript
 class ImageUploadValidator {
-  static validateImage(file) {
-    const errors = [];
-    
-    // Check file type
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
-    if (!allowedTypes.includes(file.type)) {
-      errors.push('File must be JPEG, PNG, JPG, GIF, or SVG format');
-    }
-    
-    // Check file size (2MB limit)
-    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
-    if (file.size > maxSize) {
-      errors.push('File size must be less than 2MB');
-    }
-    
-    // Check dimensions (optional)
-    return new Promise((resolve) => {
-      if (errors.length > 0) {
-        resolve({ valid: false, errors });
-        return;
-      }
-      
-      const img = new Image();
-      img.onload = function() {
-        if (this.width > 2000 || this.height > 2000) {
-          errors.push('Image dimensions must be less than 2000x2000 pixels');
+    static validateImage(file) {
+        const errors = [];
+
+        // Check file type
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/jpg",
+            "image/gif",
+            "image/svg+xml",
+        ];
+        if (!allowedTypes.includes(file.type)) {
+            errors.push("File must be JPEG, PNG, JPG, GIF, or SVG format");
         }
-        resolve({ valid: errors.length === 0, errors });
-      };
-      img.onerror = function() {
-        errors.push('Invalid image file');
-        resolve({ valid: false, errors });
-      };
-      img.src = URL.createObjectURL(file);
-    });
-  }
+
+        // Check file size (2MB limit)
+        const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+        if (file.size > maxSize) {
+            errors.push("File size must be less than 2MB");
+        }
+
+        // Check dimensions (optional)
+        return new Promise((resolve) => {
+            if (errors.length > 0) {
+                resolve({ valid: false, errors });
+                return;
+            }
+
+            const img = new Image();
+            img.onload = function () {
+                if (this.width > 2000 || this.height > 2000) {
+                    errors.push(
+                        "Image dimensions must be less than 2000x2000 pixels"
+                    );
+                }
+                resolve({ valid: errors.length === 0, errors });
+            };
+            img.onerror = function () {
+                errors.push("Invalid image file");
+                resolve({ valid: false, errors });
+            };
+            img.src = URL.createObjectURL(file);
+        });
+    }
 }
 
 // Usage in file upload
 async function handleImageUpload(file) {
-  const validation = await ImageUploadValidator.validateImage(file);
-  
-  if (!validation.valid) {
-    console.error('Validation errors:', validation.errors);
-    return;
-  }
-  
-  // Proceed with upload
-  const uploadManager = new FileUploadManager('https://your-domain.com/api', token);
-  const result = await uploadManager.uploadTeacherProfileImage(profileData, file);
+    const validation = await ImageUploadValidator.validateImage(file);
+
+    if (!validation.valid) {
+        console.error("Validation errors:", validation.errors);
+        return;
+    }
+
+    // Proceed with upload
+    const uploadManager = new FileUploadManager(
+        "https://your-domain.com/api",
+        token
+    );
+    const result = await uploadManager.uploadTeacherProfileImage(
+        profileData,
+        file
+    );
 }
 ```
 
@@ -13411,152 +13604,186 @@ curl -X PUT "https://your-domain.com/api/translations/es" \
 
 ```javascript
 class AdminDashboard {
-  constructor(apiBaseUrl, authToken) {
-    this.apiBaseUrl = apiBaseUrl;
-    this.authToken = authToken;
-  }
-
-  getAuthHeaders() {
-    return {
-      'Authorization': `Bearer ${this.authToken}`,
-      'Content-Type': 'application/json'
-    };
-  }
-
-  async getDashboardData() {
-    try {
-      const [users, enrollments, statistics] = await Promise.all([
-        this.getUsers(1, 10),
-        this.getPendingEnrollments(),
-        this.getEnrollmentStatistics()
-      ]);
-
-      return {
-        users: users.data,
-        pendingEnrollments: enrollments.data,
-        statistics: statistics.data
-      };
-    } catch (error) {
-      throw new Error(`Failed to load dashboard data: ${error.message}`);
+    constructor(apiBaseUrl, authToken) {
+        this.apiBaseUrl = apiBaseUrl;
+        this.authToken = authToken;
     }
-  }
 
-  async getUsers(page = 1, perPage = 15) {
-    const response = await fetch(`${this.apiBaseUrl}/admin/users?page=${page}&per_page=${perPage}`, {
-      headers: this.getAuthHeaders()
-    });
-    return response.json();
-  }
+    getAuthHeaders() {
+        return {
+            Authorization: `Bearer ${this.authToken}`,
+            "Content-Type": "application/json",
+        };
+    }
 
-  async createUser(userData) {
-    const response = await fetch(`${this.apiBaseUrl}/admin/users`, {
-      method: 'POST',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify(userData)
-    });
-    return response.json();
-  }
+    async getDashboardData() {
+        try {
+            const [users, enrollments, statistics] = await Promise.all([
+                this.getUsers(1, 10),
+                this.getPendingEnrollments(),
+                this.getEnrollmentStatistics(),
+            ]);
 
-  async updateUser(userId, updates) {
-    const response = await fetch(`${this.apiBaseUrl}/admin/users/${userId}`, {
-      method: 'PUT',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify(updates)
-    });
-    return response.json();
-  }
+            return {
+                users: users.data,
+                pendingEnrollments: enrollments.data,
+                statistics: statistics.data,
+            };
+        } catch (error) {
+            throw new Error(`Failed to load dashboard data: ${error.message}`);
+        }
+    }
 
-  async deleteUser(userId) {
-    const response = await fetch(`${this.apiBaseUrl}/admin/users/${userId}`, {
-      method: 'DELETE',
-      headers: this.getAuthHeaders()
-    });
-    return response.json();
-  }
+    async getUsers(page = 1, perPage = 15) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/admin/users?page=${page}&per_page=${perPage}`,
+            {
+                headers: this.getAuthHeaders(),
+            }
+        );
+        return response.json();
+    }
 
-  async getPendingEnrollments() {
-    const response = await fetch(`${this.apiBaseUrl}/admin/pending-enrollments`, {
-      headers: this.getAuthHeaders()
-    });
-    return response.json();
-  }
+    async createUser(userData) {
+        const response = await fetch(`${this.apiBaseUrl}/admin/users`, {
+            method: "POST",
+            headers: this.getAuthHeaders(),
+            body: JSON.stringify(userData),
+        });
+        return response.json();
+    }
 
-  async approveEnrollment(studentId, programId) {
-    const response = await fetch(`${this.apiBaseUrl}/admin/grant-access`, {
-      method: 'POST',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify({ student_id: studentId, program_id: programId })
-    });
-    return response.json();
-  }
+    async updateUser(userId, updates) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/admin/users/${userId}`,
+            {
+                method: "PUT",
+                headers: this.getAuthHeaders(),
+                body: JSON.stringify(updates),
+            }
+        );
+        return response.json();
+    }
 
-  async bulkApproveEnrollments(enrollmentIds) {
-    const response = await fetch(`${this.apiBaseUrl}/admin/bulk-approve-enrollments`, {
-      method: 'POST',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify({ enrollment_ids: enrollmentIds })
-    });
-    return response.json();
-  }
+    async deleteUser(userId) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/admin/users/${userId}`,
+            {
+                method: "DELETE",
+                headers: this.getAuthHeaders(),
+            }
+        );
+        return response.json();
+    }
 
-  async getEnrollmentStatistics() {
-    const response = await fetch(`${this.apiBaseUrl}/admin/enrollment-statistics`, {
-      headers: this.getAuthHeaders()
-    });
-    return response.json();
-  }
+    async getPendingEnrollments() {
+        const response = await fetch(
+            `${this.apiBaseUrl}/admin/pending-enrollments`,
+            {
+                headers: this.getAuthHeaders(),
+            }
+        );
+        return response.json();
+    }
 
-  async updateGuestSettings(settings) {
-    const response = await fetch(`${this.apiBaseUrl}/admin/settings/guest-access`, {
-      method: 'PUT',
-      headers: this.getAuthHeaders(),
-      body: JSON.stringify(settings)
-    });
-    return response.json();
-  }
+    async approveEnrollment(studentId, programId) {
+        const response = await fetch(`${this.apiBaseUrl}/admin/grant-access`, {
+            method: "POST",
+            headers: this.getAuthHeaders(),
+            body: JSON.stringify({
+                student_id: studentId,
+                program_id: programId,
+            }),
+        });
+        return response.json();
+    }
+
+    async bulkApproveEnrollments(enrollmentIds) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/admin/bulk-approve-enrollments`,
+            {
+                method: "POST",
+                headers: this.getAuthHeaders(),
+                body: JSON.stringify({ enrollment_ids: enrollmentIds }),
+            }
+        );
+        return response.json();
+    }
+
+    async getEnrollmentStatistics() {
+        const response = await fetch(
+            `${this.apiBaseUrl}/admin/enrollment-statistics`,
+            {
+                headers: this.getAuthHeaders(),
+            }
+        );
+        return response.json();
+    }
+
+    async updateGuestSettings(settings) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/admin/settings/guest-access`,
+            {
+                method: "PUT",
+                headers: this.getAuthHeaders(),
+                body: JSON.stringify(settings),
+            }
+        );
+        return response.json();
+    }
 }
 
 // Usage example
-const adminDashboard = new AdminDashboard('https://your-domain.com/api', adminToken);
+const adminDashboard = new AdminDashboard(
+    "https://your-domain.com/api",
+    adminToken
+);
 
 async function initializeAdminDashboard() {
-  try {
-    const dashboardData = await adminDashboard.getDashboardData();
-    
-    console.log('Dashboard loaded:');
-    console.log(`- Total users: ${dashboardData.users.total}`);
-    console.log(`- Pending enrollments: ${dashboardData.pendingEnrollments.length}`);
-    console.log(`- Statistics:`, dashboardData.statistics);
+    try {
+        const dashboardData = await adminDashboard.getDashboardData();
 
-    // Render dashboard UI
-    renderUserTable(dashboardData.users);
-    renderPendingEnrollments(dashboardData.pendingEnrollments);
-    renderStatistics(dashboardData.statistics);
+        console.log("Dashboard loaded:");
+        console.log(`- Total users: ${dashboardData.users.total}`);
+        console.log(
+            `- Pending enrollments: ${dashboardData.pendingEnrollments.length}`
+        );
+        console.log(`- Statistics:`, dashboardData.statistics);
 
-  } catch (error) {
-    console.error('Dashboard initialization failed:', error.message);
-  }
+        // Render dashboard UI
+        renderUserTable(dashboardData.users);
+        renderPendingEnrollments(dashboardData.pendingEnrollments);
+        renderStatistics(dashboardData.statistics);
+    } catch (error) {
+        console.error("Dashboard initialization failed:", error.message);
+    }
 }
 
 // Bulk enrollment approval example
 async function processPendingEnrollments() {
-  try {
-    const pendingEnrollments = await adminDashboard.getPendingEnrollments();
-    
-    if (pendingEnrollments.success && pendingEnrollments.data.length > 0) {
-      const enrollmentIds = pendingEnrollments.data.map(enrollment => enrollment.id);
-      
-      const result = await adminDashboard.bulkApproveEnrollments(enrollmentIds);
-      
-      if (result.success) {
-        console.log(`Approved ${result.data.approved_count} enrollments`);
-        // Refresh dashboard
-        await initializeAdminDashboard();
-      }
+    try {
+        const pendingEnrollments = await adminDashboard.getPendingEnrollments();
+
+        if (pendingEnrollments.success && pendingEnrollments.data.length > 0) {
+            const enrollmentIds = pendingEnrollments.data.map(
+                (enrollment) => enrollment.id
+            );
+
+            const result = await adminDashboard.bulkApproveEnrollments(
+                enrollmentIds
+            );
+
+            if (result.success) {
+                console.log(
+                    `Approved ${result.data.approved_count} enrollments`
+                );
+                // Refresh dashboard
+                await initializeAdminDashboard();
+            }
+        }
+    } catch (error) {
+        console.error("Bulk approval failed:", error.message);
     }
-  } catch (error) {
-    console.error('Bulk approval failed:', error.message);
-  }
 }
 ```
 
@@ -13607,164 +13834,177 @@ curl -X POST "https://your-domain.com/api/guest/quizzes/15/attempt" \
 
 ```javascript
 class GuestAccessManager {
-  constructor(apiBaseUrl) {
-    this.apiBaseUrl = apiBaseUrl;
-  }
-
-  async checkGuestAccess() {
-    try {
-      const response = await fetch(`${this.apiBaseUrl}/admin/settings/guest-access`);
-      const result = await response.json();
-      
-      if (result.success) {
-        return result.data;
-      }
-      
-      // Default to no access if settings can't be retrieved
-      return {
-        guest_access_enabled: false,
-        guest_languages_enabled: false,
-        guest_teachers_enabled: false,
-        guest_quizzes_enabled: false
-      };
-    } catch (error) {
-      console.error('Failed to check guest access:', error);
-      return { guest_access_enabled: false };
+    constructor(apiBaseUrl) {
+        this.apiBaseUrl = apiBaseUrl;
     }
-  }
 
-  async getPublicLanguages() {
-    const response = await fetch(`${this.apiBaseUrl}/guest/languages`);
-    return response.json();
-  }
+    async checkGuestAccess() {
+        try {
+            const response = await fetch(
+                `${this.apiBaseUrl}/admin/settings/guest-access`
+            );
+            const result = await response.json();
 
-  async getPublicTeachers() {
-    const response = await fetch(`${this.apiBaseUrl}/guest/teachers`);
-    return response.json();
-  }
+            if (result.success) {
+                return result.data;
+            }
 
-  async getPublicQuizzes() {
-    const response = await fetch(`${this.apiBaseUrl}/guest/quizzes`);
-    return response.json();
-  }
+            // Default to no access if settings can't be retrieved
+            return {
+                guest_access_enabled: false,
+                guest_languages_enabled: false,
+                guest_teachers_enabled: false,
+                guest_quizzes_enabled: false,
+            };
+        } catch (error) {
+            console.error("Failed to check guest access:", error);
+            return { guest_access_enabled: false };
+        }
+    }
 
-  async getPublicQuiz(quizId) {
-    const response = await fetch(`${this.apiBaseUrl}/guest/quizzes/${quizId}`);
-    return response.json();
-  }
+    async getPublicLanguages() {
+        const response = await fetch(`${this.apiBaseUrl}/guest/languages`);
+        return response.json();
+    }
 
-  async submitGuestQuizAttempt(quizId, answers) {
-    const response = await fetch(`${this.apiBaseUrl}/guest/quizzes/${quizId}/attempt`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ answers })
-    });
-    return response.json();
-  }
+    async getPublicTeachers() {
+        const response = await fetch(`${this.apiBaseUrl}/guest/teachers`);
+        return response.json();
+    }
+
+    async getPublicQuizzes() {
+        const response = await fetch(`${this.apiBaseUrl}/guest/quizzes`);
+        return response.json();
+    }
+
+    async getPublicQuiz(quizId) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/guest/quizzes/${quizId}`
+        );
+        return response.json();
+    }
+
+    async submitGuestQuizAttempt(quizId, answers) {
+        const response = await fetch(
+            `${this.apiBaseUrl}/guest/quizzes/${quizId}/attempt`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ answers }),
+            }
+        );
+        return response.json();
+    }
 }
 
 // Public learning portal implementation
 class PublicLearningPortal {
-  constructor(apiBaseUrl) {
-    this.guestManager = new GuestAccessManager(apiBaseUrl);
-    this.accessSettings = null;
-  }
-
-  async initialize() {
-    this.accessSettings = await this.guestManager.checkGuestAccess();
-    
-    if (!this.accessSettings.guest_access_enabled) {
-      throw new Error('Guest access is not enabled');
+    constructor(apiBaseUrl) {
+        this.guestManager = new GuestAccessManager(apiBaseUrl);
+        this.accessSettings = null;
     }
 
-    const availableContent = {};
+    async initialize() {
+        this.accessSettings = await this.guestManager.checkGuestAccess();
 
-    if (this.accessSettings.guest_languages_enabled) {
-      availableContent.languages = await this.guestManager.getPublicLanguages();
+        if (!this.accessSettings.guest_access_enabled) {
+            throw new Error("Guest access is not enabled");
+        }
+
+        const availableContent = {};
+
+        if (this.accessSettings.guest_languages_enabled) {
+            availableContent.languages =
+                await this.guestManager.getPublicLanguages();
+        }
+
+        if (this.accessSettings.guest_teachers_enabled) {
+            availableContent.teachers =
+                await this.guestManager.getPublicTeachers();
+        }
+
+        if (this.accessSettings.guest_quizzes_enabled) {
+            availableContent.quizzes =
+                await this.guestManager.getPublicQuizzes();
+        }
+
+        return availableContent;
     }
 
-    if (this.accessSettings.guest_teachers_enabled) {
-      availableContent.teachers = await this.guestManager.getPublicTeachers();
+    async takePublicQuiz(quizId) {
+        if (!this.accessSettings.guest_quizzes_enabled) {
+            throw new Error("Guest quiz access is not enabled");
+        }
+
+        // Load quiz
+        const quizData = await this.guestManager.getPublicQuiz(quizId);
+
+        if (!quizData.success) {
+            throw new Error(quizData.message);
+        }
+
+        // Present quiz to user (implementation depends on UI framework)
+        const answers = await this.presentQuizToUser(quizData.data);
+
+        // Submit attempt
+        const result = await this.guestManager.submitGuestQuizAttempt(
+            quizId,
+            answers
+        );
+
+        return result;
     }
 
-    if (this.accessSettings.guest_quizzes_enabled) {
-      availableContent.quizzes = await this.guestManager.getPublicQuizzes();
+    async presentQuizToUser(quiz) {
+        // This would integrate with your UI framework
+        console.log(`Taking public quiz: ${quiz.title}`);
+
+        const answers = [];
+        for (let i = 0; i < quiz.questions.length; i++) {
+            const question = quiz.questions[i];
+            console.log(`Question ${i + 1}: ${question.question}`);
+
+            // In a real app, this would be user input
+            const answer = prompt(`Answer for question ${i + 1}:`);
+            answers.push(answer);
+        }
+
+        return answers;
     }
-
-    return availableContent;
-  }
-
-  async takePublicQuiz(quizId) {
-    if (!this.accessSettings.guest_quizzes_enabled) {
-      throw new Error('Guest quiz access is not enabled');
-    }
-
-    // Load quiz
-    const quizData = await this.guestManager.getPublicQuiz(quizId);
-    
-    if (!quizData.success) {
-      throw new Error(quizData.message);
-    }
-
-    // Present quiz to user (implementation depends on UI framework)
-    const answers = await this.presentQuizToUser(quizData.data);
-
-    // Submit attempt
-    const result = await this.guestManager.submitGuestQuizAttempt(quizId, answers);
-    
-    return result;
-  }
-
-  async presentQuizToUser(quiz) {
-    // This would integrate with your UI framework
-    console.log(`Taking public quiz: ${quiz.title}`);
-    
-    const answers = [];
-    for (let i = 0; i < quiz.questions.length; i++) {
-      const question = quiz.questions[i];
-      console.log(`Question ${i + 1}: ${question.question}`);
-      
-      // In a real app, this would be user input
-      const answer = prompt(`Answer for question ${i + 1}:`);
-      answers.push(answer);
-    }
-
-    return answers;
-  }
 }
 
 // Usage example
 async function runPublicPortal() {
-  const portal = new PublicLearningPortal('https://your-domain.com/api');
-  
-  try {
-    const content = await portal.initialize();
-    
-    console.log('Available public content:');
-    if (content.languages) {
-      console.log(`- Languages: ${content.languages.data.length}`);
-    }
-    if (content.teachers) {
-      console.log(`- Teachers: ${content.teachers.data.length}`);
-    }
-    if (content.quizzes) {
-      console.log(`- Quizzes: ${content.quizzes.data.length}`);
-      
-      // Take first available quiz
-      if (content.quizzes.data.length > 0) {
-        const firstQuiz = content.quizzes.data[0];
-        const result = await portal.takePublicQuiz(firstQuiz.id);
-        
-        if (result.success) {
-          console.log(`Quiz completed! Score: ${result.data.score}%`);
+    const portal = new PublicLearningPortal("https://your-domain.com/api");
+
+    try {
+        const content = await portal.initialize();
+
+        console.log("Available public content:");
+        if (content.languages) {
+            console.log(`- Languages: ${content.languages.data.length}`);
         }
-      }
+        if (content.teachers) {
+            console.log(`- Teachers: ${content.teachers.data.length}`);
+        }
+        if (content.quizzes) {
+            console.log(`- Quizzes: ${content.quizzes.data.length}`);
+
+            // Take first available quiz
+            if (content.quizzes.data.length > 0) {
+                const firstQuiz = content.quizzes.data[0];
+                const result = await portal.takePublicQuiz(firstQuiz.id);
+
+                if (result.success) {
+                    console.log(`Quiz completed! Score: ${result.data.score}%`);
+                }
+            }
+        }
+    } catch (error) {
+        console.error("Public portal error:", error.message);
     }
-  } catch (error) {
-    console.error('Public portal error:', error.message);
-  }
 }
 ```
 
@@ -13774,177 +14014,182 @@ async function runPublicPortal() {
 
 ```javascript
 class APIErrorHandler {
-  static async handleResponse(response) {
-    const data = await response.json();
-    
-    if (!response.ok) {
-      switch (response.status) {
-        case 401:
-          throw new AuthenticationError(data.message);
-        case 403:
-          throw new AuthorizationError(data.message);
-        case 404:
-          throw new NotFoundError(data.message);
-        case 422:
-          throw new ValidationError(data.message, data.errors);
-        case 429:
-          throw new RateLimitError(data.message);
-        case 500:
-          throw new ServerError(data.message);
-        default:
-          throw new APIError(data.message, response.status);
-      }
+    static async handleResponse(response) {
+        const data = await response.json();
+
+        if (!response.ok) {
+            switch (response.status) {
+                case 401:
+                    throw new AuthenticationError(data.message);
+                case 403:
+                    throw new AuthorizationError(data.message);
+                case 404:
+                    throw new NotFoundError(data.message);
+                case 422:
+                    throw new ValidationError(data.message, data.errors);
+                case 429:
+                    throw new RateLimitError(data.message);
+                case 500:
+                    throw new ServerError(data.message);
+                default:
+                    throw new APIError(data.message, response.status);
+            }
+        }
+
+        return data;
     }
-    
-    return data;
-  }
 }
 
 class APIError extends Error {
-  constructor(message, status) {
-    super(message);
-    this.name = 'APIError';
-    this.status = status;
-  }
+    constructor(message, status) {
+        super(message);
+        this.name = "APIError";
+        this.status = status;
+    }
 }
 
 class AuthenticationError extends APIError {
-  constructor(message) {
-    super(message, 401);
-    this.name = 'AuthenticationError';
-  }
+    constructor(message) {
+        super(message, 401);
+        this.name = "AuthenticationError";
+    }
 }
 
 class ValidationError extends APIError {
-  constructor(message, errors) {
-    super(message, 422);
-    this.name = 'ValidationError';
-    this.errors = errors;
-  }
+    constructor(message, errors) {
+        super(message, 422);
+        this.name = "ValidationError";
+        this.errors = errors;
+    }
 }
 
 class RateLimitError extends APIError {
-  constructor(message) {
-    super(message, 429);
-    this.name = 'RateLimitError';
-  }
+    constructor(message) {
+        super(message, 429);
+        this.name = "RateLimitError";
+    }
 }
 
 // Retry mechanism with exponential backoff
 class RetryManager {
-  static async withRetry(operation, maxRetries = 3, baseDelay = 1000) {
-    let lastError;
-    
-    for (let attempt = 0; attempt <= maxRetries; attempt++) {
-      try {
-        return await operation();
-      } catch (error) {
-        lastError = error;
-        
-        // Don't retry on certain errors
-        if (error instanceof AuthenticationError || 
-            error instanceof AuthorizationError || 
-            error instanceof ValidationError) {
-          throw error;
+    static async withRetry(operation, maxRetries = 3, baseDelay = 1000) {
+        let lastError;
+
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+            try {
+                return await operation();
+            } catch (error) {
+                lastError = error;
+
+                // Don't retry on certain errors
+                if (
+                    error instanceof AuthenticationError ||
+                    error instanceof AuthorizationError ||
+                    error instanceof ValidationError
+                ) {
+                    throw error;
+                }
+
+                if (attempt === maxRetries) {
+                    break;
+                }
+
+                // Exponential backoff
+                const delay = baseDelay * Math.pow(2, attempt);
+                await new Promise((resolve) => setTimeout(resolve, delay));
+            }
         }
-        
-        if (attempt === maxRetries) {
-          break;
-        }
-        
-        // Exponential backoff
-        const delay = baseDelay * Math.pow(2, attempt);
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
+
+        throw lastError;
     }
-    
-    throw lastError;
-  }
 }
 
 // Enhanced API client with error handling and retries
 class EnhancedAPIClient {
-  constructor(apiBaseUrl, authToken) {
-    this.apiBaseUrl = apiBaseUrl;
-    this.authToken = authToken;
-  }
+    constructor(apiBaseUrl, authToken) {
+        this.apiBaseUrl = apiBaseUrl;
+        this.authToken = authToken;
+    }
 
-  async makeRequest(endpoint, options = {}) {
-    const url = `${this.apiBaseUrl}${endpoint}`;
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        ...(this.authToken && { 'Authorization': `Bearer ${this.authToken}` }),
-        ...options.headers
-      },
-      ...options
-    };
+    async makeRequest(endpoint, options = {}) {
+        const url = `${this.apiBaseUrl}${endpoint}`;
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                ...(this.authToken && {
+                    Authorization: `Bearer ${this.authToken}`,
+                }),
+                ...options.headers,
+            },
+            ...options,
+        };
 
-    const operation = async () => {
-      const response = await fetch(url, config);
-      return APIErrorHandler.handleResponse(response);
-    };
+        const operation = async () => {
+            const response = await fetch(url, config);
+            return APIErrorHandler.handleResponse(response);
+        };
 
-    return RetryManager.withRetry(operation);
-  }
+        return RetryManager.withRetry(operation);
+    }
 
-  async get(endpoint, params = {}) {
-    const queryString = new URLSearchParams(params).toString();
-    const url = queryString ? `${endpoint}?${queryString}` : endpoint;
-    return this.makeRequest(url);
-  }
+    async get(endpoint, params = {}) {
+        const queryString = new URLSearchParams(params).toString();
+        const url = queryString ? `${endpoint}?${queryString}` : endpoint;
+        return this.makeRequest(url);
+    }
 
-  async post(endpoint, data) {
-    return this.makeRequest(endpoint, {
-      method: 'POST',
-      body: JSON.stringify(data)
-    });
-  }
+    async post(endpoint, data) {
+        return this.makeRequest(endpoint, {
+            method: "POST",
+            body: JSON.stringify(data),
+        });
+    }
 
-  async put(endpoint, data) {
-    return this.makeRequest(endpoint, {
-      method: 'PUT',
-      body: JSON.stringify(data)
-    });
-  }
+    async put(endpoint, data) {
+        return this.makeRequest(endpoint, {
+            method: "PUT",
+            body: JSON.stringify(data),
+        });
+    }
 
-  async delete(endpoint) {
-    return this.makeRequest(endpoint, {
-      method: 'DELETE'
-    });
-  }
+    async delete(endpoint) {
+        return this.makeRequest(endpoint, {
+            method: "DELETE",
+        });
+    }
 }
 
 // Usage with comprehensive error handling
 async function robustQuizSubmission(quizId, answers) {
-  const client = new EnhancedAPIClient('https://your-domain.com/api', studentToken);
-  
-  try {
-    const result = await client.post(`/student/quizzes/${quizId}/attempt`, { answers });
-    
-    console.log('Quiz submitted successfully:', result.data);
-    return result;
-    
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      console.error('Validation errors:', error.errors);
-      // Handle validation errors (show to user)
-      
-    } else if (error instanceof AuthenticationError) {
-      console.error('Authentication failed, redirecting to login');
-      // Redirect to login page
-      
-    } else if (error instanceof RateLimitError) {
-      console.error('Rate limit exceeded, please try again later');
-      // Show rate limit message to user
-      
-    } else {
-      console.error('Unexpected error:', error.message);
-      // Show generic error message
+    const client = new EnhancedAPIClient(
+        "https://your-domain.com/api",
+        studentToken
+    );
+
+    try {
+        const result = await client.post(`/student/quizzes/${quizId}/attempt`, {
+            answers,
+        });
+
+        console.log("Quiz submitted successfully:", result.data);
+        return result;
+    } catch (error) {
+        if (error instanceof ValidationError) {
+            console.error("Validation errors:", error.errors);
+            // Handle validation errors (show to user)
+        } else if (error instanceof AuthenticationError) {
+            console.error("Authentication failed, redirecting to login");
+            // Redirect to login page
+        } else if (error instanceof RateLimitError) {
+            console.error("Rate limit exceeded, please try again later");
+            // Show rate limit message to user
+        } else {
+            console.error("Unexpected error:", error.message);
+            // Show generic error message
+        }
+
+        throw error;
     }
-    
-    throw error;
-  }
 }
 ```
 
@@ -13974,20 +14219,21 @@ curl -X POST "https://your-domain.com/api/auth/register" \
 ```
 
 **Response:**
+
 ```json
 {
-  "success": true,
-  "message": "User registered successfully",
-  "data": {
-    "user": {
-      "id": 234,
-      "name": "Emma Thompson",
-      "email": "emma.thompson@example.com",
-      "role": "student",
-      "preferred_language": "en"
-    },
-    "token": "1|xyz789abc456def123ghi890jkl567mno234pqr901stu678vwx"
-  }
+    "success": true,
+    "message": "User registered successfully",
+    "data": {
+        "user": {
+            "id": 234,
+            "name": "Emma Thompson",
+            "email": "emma.thompson@example.com",
+            "role": "student",
+            "preferred_language": "en"
+        },
+        "token": "1|xyz789abc456def123ghi890jkl567mno234pqr901stu678vwx"
+    }
 }
 ```
 
@@ -14387,7 +14633,7 @@ curl -X POST "https://your-domain.com/api/teacher/quizzes/35/questions" \
     "question": "Which sentence uses the subjunctive mood correctly?",
     "choices": [
       "I wish I was taller",
-      "I wish I were taller", 
+      "I wish I were taller",
       "I wish I am taller",
       "I wish I will be taller"
     ],
@@ -14587,20 +14833,20 @@ make_api_call() {
     local token=$4
     local max_retries=3
     local retry_count=0
-    
+
     while [ $retry_count -lt $max_retries ]; do
         echo "Attempt $((retry_count + 1)) of $max_retries"
-        
+
         response=$(curl -s -w "HTTPSTATUS:%{http_code}" \
             -X "$method" \
             -H "Authorization: Bearer $token" \
             -H "Content-Type: application/json" \
             -d "$data" \
             "$url")
-        
+
         http_code=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
         body=$(echo $response | sed -e 's/HTTPSTATUS\:.*//g')
-        
+
         if [ "$http_code" -eq 200 ] || [ "$http_code" -eq 201 ]; then
             echo "Success: $body"
             return 0
@@ -14614,10 +14860,10 @@ make_api_call() {
             echo "Client error ($http_code): $body"
             return 1
         fi
-        
+
         retry_count=$((retry_count + 1))
     done
-    
+
     echo "Max retries exceeded"
     return 1
 }
@@ -14641,11 +14887,11 @@ make_api_call \
 create_students_from_csv() {
     local csv_file=$1
     local admin_token=$2
-    
+
     # Skip header line and process each student
     tail -n +2 "$csv_file" | while IFS=',' read -r name email phone language; do
         echo "Creating student: $name"
-        
+
         curl -X POST "https://your-domain.com/api/admin/users" \
             -H "Authorization: Bearer $admin_token" \
             -H "Content-Type: application/json" \
@@ -14660,7 +14906,7 @@ create_students_from_csv() {
             }" \
             -w "Status: %{http_code}\n" \
             -o /dev/null -s
-        
+
         # Small delay to avoid rate limiting
         sleep 1
     done
@@ -14682,31 +14928,31 @@ get_all_pages() {
     local token=$2
     local page=1
     local all_data=""
-    
+
     while true; do
         echo "Fetching page $page..."
-        
+
         response=$(curl -s \
             -H "Authorization: Bearer $token" \
             -H "Content-Type: application/json" \
             "$base_url?page=$page&per_page=50")
-        
+
         # Extract data and pagination info
         current_page=$(echo "$response" | jq -r '.data.current_page')
         last_page=$(echo "$response" | jq -r '.data.last_page')
         page_data=$(echo "$response" | jq -r '.data.data[]')
-        
+
         # Append current page data
         all_data="$all_data$page_data"
-        
+
         # Check if we've reached the last page
         if [ "$current_page" -eq "$last_page" ]; then
             break
         fi
-        
+
         page=$((page + 1))
     done
-    
+
     echo "$all_data"
 }
 
@@ -14726,17 +14972,17 @@ echo "Retrieved all users: $all_users"
 check_system_health() {
     local base_url=$1
     local admin_token=$2
-    
+
     echo "=== Learn Academy System Health Check ==="
     echo "Timestamp: $(date)"
     echo
-    
+
     # Basic health check
     echo "1. API Health Check:"
     health_response=$(curl -s -w "Status: %{http_code}" "$base_url/health")
     echo "$health_response"
     echo
-    
+
     # Authentication test
     echo "2. Authentication Test:"
     auth_response=$(curl -s -w "Status: %{http_code}" \
@@ -14744,7 +14990,7 @@ check_system_health() {
         "$base_url/auth/profile")
     echo "$auth_response"
     echo
-    
+
     # Database connectivity (via user count)
     echo "3. Database Connectivity:"
     db_response=$(curl -s -w "Status: %{http_code}" \
@@ -14752,14 +14998,14 @@ check_system_health() {
         "$base_url/admin/users?per_page=1")
     echo "$db_response"
     echo
-    
+
     # Translation system
     echo "4. Translation System:"
     trans_response=$(curl -s -w "Status: %{http_code}" \
         "$base_url/translations/en")
     echo "$trans_response"
     echo
-    
+
     echo "=== Health Check Complete ==="
 }
 
@@ -14778,6 +15024,7 @@ This comprehensive practical usage examples section provides:
 7. **Performance Optimization** - Pagination handling and efficient data retrieval
 
 Each example includes proper authentication, error handling, and follows API best practices that developers can immediately implement in their applications.
+
 ```
             "Content-Type": "application/json",
         },
@@ -18171,11 +18418,13 @@ function trackGuestInteraction(endpoint, success) {
 ```
 
 ---
+
 ## Appendices
 
 ### Data Models Reference
 
 #### User Model Structure
+
 ```json
 {
     "id": "integer",
@@ -18193,6 +18442,7 @@ function trackGuestInteraction(endpoint, success) {
 ```
 
 #### Quiz Model Structure
+
 ```json
 {
     "id": "integer",
@@ -18210,6 +18460,7 @@ function trackGuestInteraction(endpoint, success) {
 ```
 
 #### Program Model Structure
+
 ```json
 {
     "id": "integer",
@@ -18226,24 +18477,25 @@ function trackGuestInteraction(endpoint, success) {
 
 ### Error Codes Reference
 
-| Error Code | HTTP Status | Description | Resolution |
-|------------|-------------|-------------|------------|
-| `MISSING_TOKEN` | 401 | Authorization header missing | Include Bearer token |
-| `INVALID_TOKEN` | 401 | Token malformed or expired | Re-authenticate |
-| `INSUFFICIENT_ROLE` | 403 | User lacks required role | Contact administrator |
-| `RESOURCE_NOT_FOUND` | 404 | Requested resource doesn't exist | Verify resource ID |
-| `VALIDATION_FAILED` | 422 | Request data validation failed | Check field requirements |
-| `GUEST_ACCESS_DENIED` | 403 | Guest access disabled | Enable guest access or authenticate |
+| Error Code            | HTTP Status | Description                      | Resolution                          |
+| --------------------- | ----------- | -------------------------------- | ----------------------------------- |
+| `MISSING_TOKEN`       | 401         | Authorization header missing     | Include Bearer token                |
+| `INVALID_TOKEN`       | 401         | Token malformed or expired       | Re-authenticate                     |
+| `INSUFFICIENT_ROLE`   | 403         | User lacks required role         | Contact administrator               |
+| `RESOURCE_NOT_FOUND`  | 404         | Requested resource doesn't exist | Verify resource ID                  |
+| `VALIDATION_FAILED`   | 422         | Request data validation failed   | Check field requirements            |
+| `GUEST_ACCESS_DENIED` | 403         | Guest access disabled            | Enable guest access or authenticate |
 
 ### Rate Limiting
 
 The API implements rate limiting to ensure fair usage and system stability:
 
-- **Authenticated Users**: 1000 requests per hour
-- **Guest Users**: 100 requests per hour
-- **Admin Operations**: 2000 requests per hour
+-   **Authenticated Users**: 1000 requests per hour
+-   **Guest Users**: 100 requests per hour
+-   **Admin Operations**: 2000 requests per hour
 
 Rate limit headers are included in all responses:
+
 ```
 X-RateLimit-Limit: 1000
 X-RateLimit-Remaining: 999

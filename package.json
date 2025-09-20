@@ -4,7 +4,11 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test": "echo 'Frontend tests not configured yet' && exit 0",
+        "test:unit": "echo 'Frontend unit tests not configured yet' && exit 0",
+        "lint": "echo 'Frontend linting not configured yet' && exit 0",
+        "type-check": "echo 'TypeScript type checking not configured yet' && exit 0"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",

@@ -16,9 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ]);
 
-        // Global middleware for production security
+        // Global middleware for production security and monitoring
         $middleware->append([
             \App\Http\Middleware\SecurityHeadersMiddleware::class,
+            \App\Http\Middleware\PrometheusMiddleware::class,
         ]);
 
         // API rate limiting and monitoring
@@ -36,6 +37,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'locale' => \App\Http\Middleware\LocaleMiddleware::class,
             'rate.limit' => \App\Http\Middleware\ApiRateLimitMiddleware::class,
             'security.headers' => \App\Http\Middleware\SecurityHeadersMiddleware::class,
+            'prometheus' => \App\Http\Middleware\PrometheusMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

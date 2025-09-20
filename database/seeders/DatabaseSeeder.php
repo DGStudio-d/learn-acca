@@ -21,7 +21,15 @@ class DatabaseSeeder extends Seeder
             return;
         }
 
-        // Development/testing seeders
+        // Use minimal testing seeder for CI/CD testing environment
+        if (app()->environment('testing') && app()->runningInConsole()) {
+            $this->call([
+                TestingSeeder::class,
+            ]);
+            return;
+        }
+
+        // Development/local environment seeders
         $this->call([
             RolePermissionSeeder::class,
             SettingsSeeder::class,
@@ -52,7 +60,7 @@ class DatabaseSeeder extends Seeder
         $student->assignRole('student');
 
         // Run test data seeder for development
-        if (app()->environment(['local', 'testing'])) {
+        if (app()->environment(['local'])) {
             $this->call([
                 TestDataSeeder::class,
             ]);

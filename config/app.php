@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Version
+    |--------------------------------------------------------------------------
+    |
+    | This value represents the version of your application. This is used
+    | for monitoring and deployment tracking purposes.
+    |
+    */
+
+    'version' => env('APP_VERSION', '1.0.0'),
+
 ];

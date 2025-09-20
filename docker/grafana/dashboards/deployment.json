@@ -1,0 +1,99 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Deployment Monitoring",
+    "tags": ["deployment", "jenkins", "ci-cd"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Deployment Success Rate",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "rate(jenkins_builds_success_total[24h]) / rate(jenkins_builds_total[24h]) * 100",
+            "legendFormat": "Success Rate %"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 8, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Average Deployment Time",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "avg(jenkins_build_duration_seconds)",
+            "legendFormat": "Avg Duration"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 8, "x": 8, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "Deployments Today",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "increase(jenkins_builds_total[24h])",
+            "legendFormat": "Total Deployments"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 8, "x": 16, "y": 0}
+      },
+      {
+        "id": 4,
+        "title": "Deployment Timeline",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "jenkins_builds_total",
+            "legendFormat": "{{job}}"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}
+      },
+      {
+        "id": 5,
+        "title": "Build Duration Trend",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "jenkins_build_duration_seconds",
+            "legendFormat": "{{job}}"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}
+      },
+      {
+        "id": 6,
+        "title": "Failed Deployments",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(jenkins_builds_failure_total[5m])",
+            "legendFormat": "Failed Builds/min"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16}
+      },
+      {
+        "id": 7,
+        "title": "Application Health After Deployment",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "up{job=\"laravel-app\"}",
+            "legendFormat": "Application Status"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 24}
+      }
+    ],
+    "time": {
+      "from": "now-24h",
+      "to": "now"
+    },
+    "refresh": "1m"
+  }
+}

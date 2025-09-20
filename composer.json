@@ -11,6 +11,7 @@
         "laravel/sanctum": "^4.2",
         "laravel/tinker": "^2.10.1",
         "predis/predis": "^3.2",
+        "promphp/prometheus_client_php": "^2.14",
         "spatie/laravel-permission": "^6.21"
     },
     "require-dev": {
@@ -57,6 +58,34 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "test:unit": [
+            "@php artisan config:clear --ansi",
+            "vendor/bin/phpunit --testsuite=Unit"
+        ],
+        "test:feature": [
+            "@php artisan config:clear --ansi", 
+            "vendor/bin/phpunit --testsuite=Feature"
+        ],
+        "test:coverage": [
+            "@php artisan config:clear --ansi",
+            "vendor/bin/phpunit --coverage-html coverage/html --coverage-clover coverage/clover.xml"
+        ],
+        "test:ci": [
+            "@php artisan config:clear --ansi",
+            "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover=coverage/clover.xml --log-junit=test-results/phpunit.xml"
+        ],
+        "pint": [
+            "vendor/bin/pint"
+        ],
+        "pint:test": [
+            "vendor/bin/pint --test"
+        ],
+        "jenkins:setup": [
+            "bash scripts/jenkins-test-setup.sh"
+        ],
+        "jenkins:test": [
+            "bash scripts/jenkins-run-tests.sh"
         ]
     },
     "extra": {

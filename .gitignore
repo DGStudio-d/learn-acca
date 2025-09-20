@@ -23,3 +23,19 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Testing artifacts
+/test-results/
+/coverage/
+/database/testing.sqlite
+/.env.testing
+/junit.xml
+/phpunit-results.xml
+/feature-test-results.xml
+/database-tests.xml
+/jest-results.xml
+/pint-checkstyle.xml
+/phpstan-results.xml
+/psalm-results.xml
+/composer-audit.json
+/npm-audit.json
