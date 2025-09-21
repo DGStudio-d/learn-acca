@@ -22,7 +22,7 @@ class TestDataSeeder extends Seeder
 
         $arabic = Language::firstOrCreate(
             ['code' => 'ar'],
-            ['name' => 'Arabic', 'active' => true]
+            ['name' => 'Arabic', 'active' => false]
         );
 
         $spanish = Language::firstOrCreate(

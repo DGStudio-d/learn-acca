@@ -16,19 +16,19 @@ class SettingsSeeder extends Seeder
         $settings = [
             [
                 'key' => 'allow_guest_languages',
-                'value' => 'false',
+                'value' => 'true',
                 'type' => 'boolean',
                 'description' => 'Allow unauthenticated users to view available languages'
             ],
             [
                 'key' => 'allow_guest_teachers',
-                'value' => 'false',
+                'value' => 'true',
                 'type' => 'boolean',
                 'description' => 'Allow guests to see teacher profiles and their associated languages'
             ],
             [
                 'key' => 'allow_guest_quizzes',
-                'value' => 'false',
+                'value' => 'true',
                 'type' => 'boolean',
                 'description' => 'Allow anonymous quiz attempts'
             ]
